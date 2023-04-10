@@ -30,8 +30,8 @@ RUN dotnet restore
 RUN dotnet tool restore
 
 # Yarn (although it isn't as large, still worth caching)
-COPY src/RetroTime.Web/package.json src/RetroTime.Web/
-COPY src/RetroTime.Web/yarn.lock src/RetroTime.Web/
+#COPY package.json src/RetroTime.Web/
+#COPY yarn.lock src/RetroTime.Web/
 RUN yarn --cwd src/RetroTime.Web/
 
 ## Skip build script pre-warm
