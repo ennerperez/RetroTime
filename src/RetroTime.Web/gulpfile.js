@@ -22,7 +22,7 @@ gulp.task('scripts-main', function () {
         .src([
             "./node_modules/bootstrap/dist/js/bootstrap.js",
             "./node_modules/@popperjs/core",
-            "./_scripts/_pokertime.js"
+            "./_scripts/_retrotime.js"
         ])
         .pipe(onlyInDevBuild(sourcemaps.init()))
         .pipe(onlyInDevBuild(sourcemaps.write()))
