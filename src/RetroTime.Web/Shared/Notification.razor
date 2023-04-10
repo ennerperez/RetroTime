@@ -1,4 +1,4 @@
-@if (this.IsHidden == false)
+@if (IsHidden == false)
 {
     <div class="notification @GetCssClass()">
         <button class="delete" @onclick="HideNotification"></button>
@@ -21,7 +21,7 @@
 
     private string GetCssClass()
     {
-        switch (this.Type)
+        switch (Type)
         {
             case NotificationType.Primary:
                 return "is-primary";
@@ -40,7 +40,7 @@
 
     public void HideNotification()
     {
-        this.IsHidden = true;
+        IsHidden = true;
     }
 
     public enum NotificationType

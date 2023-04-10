@@ -9,7 +9,7 @@
 </div>
 
 @code {
-    private int ConstrainedPercent => (int) Math.Ceiling(Math.Min(Math.Max(this.Percent, 0), 100));
+    private int ConstrainedPercent => (int) Math.Ceiling(Math.Min(Math.Max(Percent, 0), 100));
 
     [Parameter]
     public double Percent { get; set; }
@@ -27,34 +27,34 @@
 
     public void Start()
     {
-        if (this._runningTimer == null)
+        if (_runningTimer == null)
         {
-            this._runningTimer = new System.Timers.Timer(this.IntervalMilliseconds);
-            this._runningTimer.Elapsed += delegate
+            _runningTimer = new System.Timers.Timer(IntervalMilliseconds);
+            _runningTimer.Elapsed += delegate
             {
-                this.InvokeAsync(() =>
+                InvokeAsync(() =>
                 {
-                    bool shouldContinue = this.Callback.Invoke();
+                    bool shouldContinue = Callback.Invoke();
 
                     if (!shouldContinue) {
-                        this._runningTimer.Stop();
-                        this._runningTimer = null;
+                        _runningTimer.Stop();
+                        _runningTimer = null;
 
-                        this.StateHasChanged();
+                        StateHasChanged();
                         return;
                     }
                    
-                    this.StateHasChanged();
+                    StateHasChanged();
                 });
             };
-            this._runningTimer.Start();
+            _runningTimer.Start();
         }
     }
 
     public void Dispose()
     {
-        this._runningTimer?.Stop();
-        this._runningTimer?.Dispose();
-        this._runningTimer = null;
+        _runningTimer?.Stop();
+        _runningTimer?.Dispose();
+        _runningTimer = null;
     }
 }

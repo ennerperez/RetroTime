@@ -9,7 +9,6 @@ namespace RetroTime.Application.Tests.Unit.Support;
 
 using System;
 using Persistence;
-using RetroTime.Persistence;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1063:Implement IDisposable Correctly", Justification = "Not necessary for test base class")]
 public class CommandTestBase : IDisposable {

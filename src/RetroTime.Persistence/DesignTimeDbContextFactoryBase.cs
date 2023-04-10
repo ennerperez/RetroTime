@@ -10,7 +10,7 @@ namespace RetroTime.Persistence;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using RetroTime.Common;
+using Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

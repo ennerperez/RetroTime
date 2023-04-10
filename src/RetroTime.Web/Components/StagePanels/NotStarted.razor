@@ -9,8 +9,8 @@
         </p>
 
         <NextStageInvocationForm TModel="InitiateWritingStageCommand"
-                                 Model="@this.Command"
-                                 OnContinue="@this.OnInvokeContinueToNextStage"
+                                 Model="@Command"
+                                 OnContinue="@OnInvokeContinueToNextStage"
                                  ButtonText="Start retrospective"
                                  TimeLabelText="Time to brainstorm (minutes)"/>
     </Facilitator>
@@ -24,5 +24,5 @@
 @code {
     private InitiateWritingStageCommand Command { get; } = new InitiateWritingStageCommand();
 
-    private Task OnInvokeContinueToNextStage(InitiateWritingStageCommand command) => this.Mediator.Send(this.Command);
+    private Task OnInvokeContinueToNextStage(InitiateWritingStageCommand command) => Mediator.Send(Command);
 }

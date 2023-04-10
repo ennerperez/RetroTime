@@ -8,7 +8,7 @@
 namespace RetroTime.Persistence;
 
 using RetroTime.Application.Common.Abstractions;
-using RetroTime.Common;
+using Common;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions {

@@ -4,35 +4,35 @@
     <TopMenu BrandIsClickable="false">
         <div class="navbar-start navbar-retrospective-start">
             <div class="navbar-item">
-                <h1 class="retrospective-title">@this._layoutInfo.Title</h1>
+                <h1 class="retrospective-title">@_layoutInfo.Title</h1>
             </div>
         </div>
 
         <div class="navbar-end">
             <div class="navbar-item retrospective-progress-container">
-                <div class="retrospective-progress @(this.CurrentStage == RetrospectiveStage.NotStarted ? "retrospective-progress--inactive" : String.Empty)">
+                <div class="retrospective-progress @(CurrentStage == RetrospectiveStage.NotStarted ? "retrospective-progress--inactive" : String.Empty)">
                     <RetrospectiveProgressItem
-                        CurrentStage="@this.CurrentStage"
+                        CurrentStage="@CurrentStage"
                         ApplicableTo="@RetrospectiveStage.Writing"
                         Text="Write"/>
 
                     <RetrospectiveProgressItem
-                        CurrentStage="@this.CurrentStage"
+                        CurrentStage="@CurrentStage"
                         ApplicableTo="@RetrospectiveStage.Discuss"
                         Text="Discuss"/>
 
                     <RetrospectiveProgressItem
-                        CurrentStage="@this.CurrentStage"
+                        CurrentStage="@CurrentStage"
                         ApplicableTo="@RetrospectiveStage.Grouping"
                         Text="Group"/>
 
                     <RetrospectiveProgressItem
-                        CurrentStage="@this.CurrentStage"
+                        CurrentStage="@CurrentStage"
                         ApplicableTo="@RetrospectiveStage.Voting"
                         Text="Vote"/>
 
                     <RetrospectiveProgressItem
-                        CurrentStage="@this.CurrentStage"
+                        CurrentStage="@CurrentStage"
                         ApplicableTo="@RetrospectiveStage.Finished"
                         Text="Finished"/>
                 </div>
@@ -46,12 +46,12 @@
     #nullable disable
     private RetrospectiveLayoutInfo _layoutInfo = new RetrospectiveLayoutInfo("Loading...");
 
-    private RetrospectiveStage CurrentStage => this._layoutInfo.Stage ?? RetrospectiveStage.NotStarted;
+    private RetrospectiveStage CurrentStage => _layoutInfo.Stage ?? RetrospectiveStage.NotStarted;
 
     public void Update(in RetrospectiveLayoutInfo layoutInfo)
     {
-        this._layoutInfo = layoutInfo;
+        _layoutInfo = layoutInfo;
 
-        this.StateHasChanged();
+        StateHasChanged();
     }
 }

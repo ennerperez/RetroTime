@@ -2,8 +2,8 @@
 @layout RetrospectiveLayout
 @inherits RetrospectiveLobbyBase
 
-@if (this.RetrospectiveStatus == null) {
-    if (this.HasLoaded) {
+@if (RetrospectiveStatus == null) {
+    if (HasLoaded) {
         <ErrorMessage Text="This retrospective cannot be found!" />
     } else {
         <p>Hold on... crunching the data</p>
@@ -12,13 +12,13 @@
     return;
 }
 
-<CascadingValue Value=@this.RetroIdObject IsFixed="true">
-    <CascadingValue Value=@this.CurrentParticipant IsFixed="true">
-        <CascadingValue Value=@this.RetrospectiveStatus>
-            <CascadingValue Value=@this.Votes>
+<CascadingValue Value=@RetroIdObject IsFixed="true">
+    <CascadingValue Value=@CurrentParticipant IsFixed="true">
+        <CascadingValue Value=@RetrospectiveStatus>
+            <CascadingValue Value=@Votes>
                 <div class="columns" data-test-element-id="main-board">
                     <div class="column is-three-quarters">
-                        @if (this.ShowShowcase == false)
+                        @if (ShowShowcase == false)
                         {
                             <RetrospectiveBoard />
                         }
@@ -29,11 +29,11 @@
                     </div>
 
                     <div class="column">
-                        <CascadingValue TValue="@IRetrospectiveLobby" Value=@this IsFixed="true">
+                        <CascadingValue TValue="@IRetrospectiveLobby" Value=@(this) IsFixed="true">
                             <RetrospectiveStatusPanel />
                         </CascadingValue>
 
-                        <RetrospectiveOnlineList RetroId="@this.RetroId" CurrentParticipant="@this.CurrentParticipant" />
+                        <RetrospectiveOnlineList RetroId="@RetroId" CurrentParticipant="@CurrentParticipant" />
                     </div>
                 </div>
             </CascadingValue>

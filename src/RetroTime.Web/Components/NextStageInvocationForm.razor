@@ -14,19 +14,19 @@
 <EditForm Model="@Model" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
     <Blazored.FluentValidation.FluentValidationValidator />
 
-    @this.ChildContent
+    @ChildContent
 
     <div class="field">
         <label class="label">@TimeLabelText</label>
 
         <div class="control">
             <div class="control has-icons-left">
-                <InputNumber min="1" max="30" class="input" data-test-element-id="time-in-minutes-input" @bind-Value="@this.Model.TimeInMinutes" style="width: 8em" />
+                <InputNumber min="1" max="30" class="input" data-test-element-id="time-in-minutes-input" @bind-Value="@Model.TimeInMinutes" style="width: 8em" />
                 <span class="icon is-small is-left">
                     <i class="fas fa-stopwatch"></i>
                 </span>
              </div>
-            <ValidationMessage For="() => this.Model.TimeInMinutes" />
+            <ValidationMessage For="() => Model.TimeInMinutes" />
         </div>
     </div>
 
@@ -62,9 +62,9 @@
 
     protected override void OnParametersSet()
     {
-        if (this.RetroId != null && this.Model != null)
+        if (RetroId != null && Model != null)
         {
-            this.Model.RetroId = this.RetroId.StringId;
+            Model.RetroId = RetroId.StringId;
         }
 
         base.OnParametersSet();
@@ -72,19 +72,19 @@
 
     private void HandleInvalidSubmit()
     {
-        this.ShowErrorMessage = false;
+        ShowErrorMessage = false;
     }
 
     private async Task HandleValidSubmit()
     {
         try
         {
-            await this.OnContinue.InvokeAsync((TModel)(object)this.Model);
+            await OnContinue.InvokeAsync((TModel)(object)Model);
         }
         catch (Exception ex)
         {
-            this.Logger.LogError(ex, $"Unable to start the next stage of retrospective {this.RetroId} from form: {this.ButtonText}");
-            this.ShowErrorMessage = true;
+            Logger.LogError(ex, $"Unable to start the next stage of retrospective {RetroId} from form: {ButtonText}");
+            ShowErrorMessage = true;
         }
     }
 }

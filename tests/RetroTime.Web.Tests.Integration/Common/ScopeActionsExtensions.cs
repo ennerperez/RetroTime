@@ -11,7 +11,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using RetroTime.Application.Common.Abstractions;
-using RetroTime.Application.Retrospectives.Commands.CreateRetrospective;
+using Application.Retrospectives.Commands.CreateRetrospective;
 using RetroTime.Application.Services;
 using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;

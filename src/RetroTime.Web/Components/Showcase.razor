@@ -1,8 +1,8 @@
 @inherits ShowcaseBase
 
-@if (this.Data == null)
+@if (Data == null)
 {
-    if (this.ShowErrorMessage)
+    if (ShowErrorMessage)
     {
         <ErrorMessage />
     }
@@ -16,28 +16,28 @@
     <div class="showcase">
         <div class="showcase__button-container showcase__button-container--previous">
             <button type="button"
-                    class="button @(this.HasPreviousItem ? "is-dark" : "is-light") is-inverted"
+                    class="button @(HasPreviousItem ? "is-dark" : "is-light") is-inverted"
                     data-keypress-handler="CTRL+ArrowLeft" title="You can also press CTRL+Left arrow key"
-                    @onclick="@this.ShowPreviousItem">
+                    @onclick="@ShowPreviousItem">
                 <span class="icon">
                     <span class="fas fa-arrow-left"></span>
                 </span>
             </button>
         </div>
 
-        @for (int index = 0; index < this.Data.Items.Count; index++)
+        @for (int index = 0; index < Data.Items.Count; index++)
         {
             <ShowcaseItemDisplay @key="@index" 
-                                  Data="@(this.Data.Items[index])"
+                                  Data="@(Data.Items[index])"
                                   ItemIndex="@index" 
-                                  VisibleItemIndex="@this.VisibleItemIndex"/>
+                                  VisibleItemIndex="@VisibleItemIndex"/>
         }
 
         <div class="showcase__button-container showcase__button-container--next">
             <button type="button"
-                    class="button @(this.HasNextItem ? "is-link" : "is-light") is-inverted"
+                    class="button @(HasNextItem ? "is-link" : "is-light") is-inverted"
                     data-keypress-handler="CTRL+ArrowRight" title="You can also press CTRL+Right arrow key"
-                    @onclick="@this.ShowNextItem">
+                    @onclick="@ShowNextItem">
                 <span class="icon">
                     <span class="fas fa-arrow-right"></span>
                 </span>

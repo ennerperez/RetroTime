@@ -11,7 +11,6 @@ using System;
 using RetroTime.Application.Common.Mapping;
 using AutoMapper;
 using Persistence;
-using RetroTime.Persistence;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1063:Implement IDisposable Correctly", Justification = "Not necessary for test")]
 public class QueryTestBase : IDisposable {

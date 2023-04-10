@@ -10,7 +10,7 @@
         <WorkflowStatusTimer />
 
         <p>
-            Votes are now being cast, a maximum of @this.RetrospectiveStatus.VotesPerLane votes per lane per participant.
+            Votes are now being cast, a maximum of @RetrospectiveStatus.VotesPerLane votes per lane per participant.
         </p>
 
         <h3 class="retrospective-status-panel__next-step-title">Next step</h3>
@@ -27,7 +27,7 @@
     </Facilitator>
     <Participant>
         <p>
-            Please cast your votes now. You can vote @this.RetrospectiveStatus.VotesPerLane times per lane.
+            Please cast your votes now. You can vote @RetrospectiveStatus.VotesPerLane times per lane.
         </p>
 
         <VoteStatusPanel />
@@ -43,12 +43,12 @@
     public RetrospectiveStatus RetrospectiveStatus { get; set; }
 
     private Task Continue() {
-        if (this.RetrospectiveStatus == null) {
+        if (RetrospectiveStatus == null) {
             return Task.CompletedTask;  // Shouldn't happen, but ignore
         }
 
-        return this.Mediator.Send(new InitiateFinishStageCommand {
-            RetroId = this.RetrospectiveStatus.RetroId
+        return Mediator.Send(new InitiateFinishStageCommand {
+            RetroId = RetrospectiveStatus.RetroId
         });
     }
 

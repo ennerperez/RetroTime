@@ -1,8 +1,8 @@
 @using RetroTime.Domain.Entities
 
-<div class="retrospective-progress__item @this.CssClass">
+<div class="retrospective-progress__item @CssClass">
     <span>
-        @this.Text
+        @Text
     </span>
 </div>
 
@@ -16,19 +16,19 @@
     [Parameter]
     public string? Text { get; set; }
 
-    private bool IsPrevious => this.ApplicableTo < this.CurrentStage;
-    private bool IsCurrent => this.CurrentStage == this.ApplicableTo;
+    private bool IsPrevious => ApplicableTo < CurrentStage;
+    private bool IsCurrent => CurrentStage == ApplicableTo;
 
     private string CssClass
     {
         get
         {
-            if (this.IsCurrent)
+            if (IsCurrent)
             {
                 return "retrospective-progress__item--is-current";
             }
 
-            if (this.IsPrevious)
+            if (IsPrevious)
             {
                 return "retrospective-progress__item--is-previous";
             }

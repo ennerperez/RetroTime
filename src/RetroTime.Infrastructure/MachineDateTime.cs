@@ -8,7 +8,7 @@
 namespace RetroTime.Infrastructure;
 
 using System;
-using RetroTime.Common;
+using Common;
 
 public sealed class MachineSystemClock : ISystemClock {
     public DateTime Now => DateTime.Now;

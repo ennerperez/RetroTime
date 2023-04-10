@@ -2,17 +2,17 @@
 @using RetroTime.Web.Components.Layout
 @implements RetroTime.Web.Components.Layout.IRetrospectiveLayout
 
-<RetrospectiveLobbyTopMenu @ref="this._topMenu"/>
+<RetrospectiveLobbyTopMenu @ref="_topMenu"/>
 
 <section class="section">
     <div class="container">
-        <CascadingValue Value=@this IsFixed="true" TValue="IRetrospectiveLayout">
+        <CascadingValue Value=@(this) IsFixed="true" TValue="IRetrospectiveLayout">
             @Body
         </CascadingValue>
     </div>
 </section>
 
-<Footer />
+<CommonButtonMenu />
 
 @code {
 
@@ -22,15 +22,15 @@
 
     public void Update(in RetrospectiveLayoutInfo layoutInfo)
     {
-        this._layoutInfo = layoutInfo;
+        _layoutInfo = layoutInfo;
 
-        if (this._topMenu != null)
+        if (_topMenu != null)
         {
-            this._topMenu.Update(layoutInfo);
+            _topMenu.Update(layoutInfo);
         }
         else
         {
-            this._needToUpdateTopMenu = true;
+            _needToUpdateTopMenu = true;
         }
     }
 
@@ -38,9 +38,9 @@
     {
         base.OnAfterRender(firstRender);
 
-        if (this._needToUpdateTopMenu && this._topMenu != null)
+        if (_needToUpdateTopMenu && _topMenu != null)
         {
-            this._topMenu.Update(this._layoutInfo);
+            _topMenu.Update(_layoutInfo);
         }
     }
 }

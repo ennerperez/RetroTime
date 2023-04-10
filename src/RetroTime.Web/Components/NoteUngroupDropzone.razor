@@ -19,23 +19,23 @@
     protected void HandleDragEnter()
     {
         // Ignore drag to self
-        if (null == this.Container.Payload?.GroupId) return;
+        if (null == Container.Payload?.GroupId) return;
 
         // TODO: check lane ID "no-drop"
-        this.DropClass = "can-drop";
+        DropClass = "can-drop";
     }
 
     protected void HandleDragLeave()
     {
-        this.DropClass = "";
+        DropClass = "";
     }
 
     protected async Task HandleDrop()
     {
-        this.DropClass = "";
+        DropClass = "";
 
-        if (null == this.Container.Payload?.GroupId) return;
+        if (null == Container.Payload?.GroupId) return;
 
-        await this.Container.UpdateGroupAsync(null);
+        await Container.UpdateGroupAsync(null);
     }
 }

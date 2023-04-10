@@ -29,7 +29,7 @@ public sealed class MappingTests : MappingTestBase {
     [Test]
     public void ShouldMap_PredefinedParticipantColor_ToAvailableParticipantColor() {
         // Given
-        var entity = new Domain.Entities.PredefinedParticipantColor("Color A", Color.Tomato);
+        var entity = new PredefinedParticipantColor("Color A", Color.Tomato);
 
         // When
         var mapped = this.Mapper.Map<AvailableParticipantColorModel>(entity);

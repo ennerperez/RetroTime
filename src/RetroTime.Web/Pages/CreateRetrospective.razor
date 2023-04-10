@@ -112,7 +112,7 @@ else
 
         @if (SecuritySettingsAccessor.Value.LobbyCreationNeedsPassphrase)
         {
-            <Modal IsShown="@this.ShowPasswordModal">
+            <Modal IsShown="@ShowPasswordModal">
                 <div class="box" data-test-element-id="lobby-creation-passphrase-modal">
                     <div class="field">
                         <label class="label" for="retro-lobby-creation-passphrase">Pre-shared retrospective creation passphrase</label>
@@ -149,34 +149,34 @@ else
 
     Task HandleInvalidSubmit(EditContext editContext)
     {
-        this.ShowErrorMessage = false;
+        ShowErrorMessage = false;
 
-        bool hasLobbyCreationPassphraseError = editContext.GetValidationMessages(() => this.Model.LobbyCreationPassphrase).Any();
-        this.ShowPasswordModal = hasLobbyCreationPassphraseError;
+        bool hasLobbyCreationPassphraseError = editContext.GetValidationMessages(() => Model.LobbyCreationPassphrase).Any();
+        ShowPasswordModal = hasLobbyCreationPassphraseError;
 
         return Task.CompletedTask;
     }
 
     void HandleProtectedFormSubmit()
     {
-        this.ShowPasswordModal = true;
+        ShowPasswordModal = true;
     }
 
     async Task HandleValidSubmit()
     {
-        this.ShowPasswordModal = false;
-        this.ShowErrorMessage = false;
+        ShowPasswordModal = false;
+        ShowErrorMessage = false;
 
         try
         {
-            CreateRetrospectiveCommandResponse response = await this.Mediator.Send(this.Model);
+            CreateRetrospectiveCommandResponse response = await Mediator.Send(Model);
 
-            this.Result = response;
-            this.ShowCompletionMessage = true;
+            Result = response;
+            ShowCompletionMessage = true;
         }
         catch (Exception ex)
         {
-            this.ShowErrorMessage = true;
+            ShowErrorMessage = true;
 
             Logger.LogError(ex, "Error creating retrospective");
         }

@@ -9,9 +9,9 @@
     </p>
 
     <ul class="vote-status-panel__list">
-        @foreach (int participantId in this.Votes.VotesByParticipant.Keys)
+        @foreach (int participantId in Votes.VotesByParticipant.Keys)
         {
-            List<VoteModel> participantVotes = this.Votes.VotesByParticipant.Get(participantId);
+            List<VoteModel> participantVotes = Votes.VotesByParticipant.Get(participantId);
             VoteModel participantVote = participantVotes[0];
             bool isDone = participantVotes.All(v => v.IsCast);
             string faClass = isDone ? "fas" : "far";
@@ -42,7 +42,7 @@
     {
         get
         {
-            List<VoteModel> votesForParticipant = this.Votes.VotesByParticipant.Get(this.CurrentParticipant.Id);
+            List<VoteModel> votesForParticipant = Votes.VotesByParticipant.Get(CurrentParticipant.Id);
             return votesForParticipant.Count(x => x.IsCast == false);
         }
     }

@@ -24,7 +24,7 @@ public sealed class GetAvailablePredefinedParticipantColorsQueryHandlerTests : Q
     [Test]
     public async Task GetAvailablePredefinedParticipantColorsTest() {
         // Given
-        var retro = new Domain.Entities.Retrospective {
+        var retro = new Retrospective {
             CreationTimestamp = DateTimeOffset.UtcNow,
             FacilitatorHashedPassphrase = "xxx",
             Title = "xxx",

@@ -24,27 +24,27 @@
     {
         base.OnParametersSet();
 
-        this.StartTimerIfNecessary();
+        StartTimerIfNecessary();
     }
 
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
 
-        this.StartTimerIfNecessary();
+        StartTimerIfNecessary();
     }
 
     private void StartTimerIfNecessary()
     {
-        if (this._waitTimer != null && this.RetrospectiveStatus != null && !this.RetrospectiveStatus.WorkflowStatus.HasReachedTimeLimit(this.SystemClock.CurrentTimeOffset))
+        if (_waitTimer != null && RetrospectiveStatus != null && !RetrospectiveStatus.WorkflowStatus.HasReachedTimeLimit(SystemClock.CurrentTimeOffset))
         {
-            this._waitTimer?.Start();
+            _waitTimer?.Start();
         }
     }
 
     private bool OnTimerCallback()
     {
-        RetrospectiveStatus? status = this.RetrospectiveStatus;
+        RetrospectiveStatus? status = RetrospectiveStatus;
         if (status == null)
         {
             return false;
@@ -52,27 +52,27 @@
 
         RetrospectiveWorkflowStatus workflowStatus = status.WorkflowStatus;
 
-        this.StateHasChanged();
-        return !workflowStatus.HasReachedTimeLimit(this.SystemClock.CurrentTimeOffset);
+        StateHasChanged();
+        return !workflowStatus.HasReachedTimeLimit(SystemClock.CurrentTimeOffset);
     }
 
     private string GetTimerText()
     {
-        RetrospectiveStatus? status = this.RetrospectiveStatus;
+        RetrospectiveStatus? status = RetrospectiveStatus;
         if (status == null)
         {
             return "0:00";
         }
 
         RetrospectiveWorkflowStatus workflowStatus = status.WorkflowStatus;
-        TimeSpan timeLeft = workflowStatus.GetTimeLeft(this.SystemClock.CurrentTimeOffset);
+        TimeSpan timeLeft = workflowStatus.GetTimeLeft(SystemClock.CurrentTimeOffset);
 
         return timeLeft.ToString(@"mm\:ss", CultureInfo.CurrentCulture);
     }
 
     private double CalculatePercent()
     {
-        RetrospectiveStatus? status = this.RetrospectiveStatus;
+        RetrospectiveStatus? status = RetrospectiveStatus;
         if (status == null)
         {
             return 0;
@@ -80,7 +80,7 @@
 
         RetrospectiveWorkflowStatus workflowStatus = status.WorkflowStatus;
 
-        TimeSpan timeLeft = workflowStatus.GetTimeLeft(this.SystemClock.CurrentTimeOffset);
+        TimeSpan timeLeft = workflowStatus.GetTimeLeft(SystemClock.CurrentTimeOffset);
 
         double timeLeftMinutes = timeLeft.TotalMinutes;
         double totalTimeMinutes = workflowStatus.TimeLimitInMinutes;
@@ -91,14 +91,14 @@
 
     private string GetCssClass()
     {
-        RetrospectiveStatus? status = this.RetrospectiveStatus;
+        RetrospectiveStatus? status = RetrospectiveStatus;
         if (status == null)
         {
             return String.Empty;
         }
 
         RetrospectiveWorkflowStatus workflowStatus = status.WorkflowStatus;
-        double secondsLeft = workflowStatus.GetTimeLeft(this.SystemClock.CurrentTimeOffset).TotalSeconds;
+        double secondsLeft = workflowStatus.GetTimeLeft(SystemClock.CurrentTimeOffset).TotalSeconds;
 
         string subClass = "normal";
         if (secondsLeft <= 30)

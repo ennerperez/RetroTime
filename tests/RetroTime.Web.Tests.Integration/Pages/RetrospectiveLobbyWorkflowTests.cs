@@ -13,7 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using RetroTime.Application.Common.Models;
-using RetroTime.Application.Notes.Commands.MoveNote;
+using Application.Notes.Commands.MoveNote;
 using Common;
 using Components;
 using Domain.Entities;

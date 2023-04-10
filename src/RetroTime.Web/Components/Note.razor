@@ -1,39 +1,39 @@
 @inherits NoteBase
 
-@if (this.Data.GroupId == null) {
-    <VoteList Note="@this.Data"/>
+@if (Data.GroupId == null) {
+    <VoteList Note="@Data"/>
 }
 
-<div class="box note @(this.Container?.IsGroupingAllowed() == true ? "draggable" : "") @(this.CanView() ? "" : "note--blurred") @(this.CanEdit() ? "note--editable" : "")" 
-     data-id="@this.Data.Id"
+<div class="box note @(Container?.IsGroupingAllowed() == true ? "draggable" : "") @(CanView() ? "" : "note--blurred") @(CanEdit() ? "note--editable" : "")" 
+     data-id="@Data.Id"
      data-test-element-id="note"
-     draggable="@(this.Container?.IsGroupingAllowed() == true ? "true" : null)"
-     @ondragstart="@(() => HandleDragStart(this.Data))"
+     draggable="@(Container?.IsGroupingAllowed() == true ? "true" : null)"
+     @ondragstart="@(() => HandleDragStart(Data))"
      @ondragend="@(() => HandleDragEnd())"
-     style="background-color: #@this.Data.ParticipantColor.HexString">
-    @if (this.CanEdit())
+     style="background-color: #@Data.ParticipantColor.HexString">
+    @if (CanEdit())
     {
-        @if (this.ShowErrorMessage)
+        @if (ShowErrorMessage)
         {
             <p class="has-text-warning has-text-centered">Couldn't save, please try again!</p>
         }
 
-        @if (this.RetrospectiveStatus.IsDeletingNotesAllowed) {
+        @if (RetrospectiveStatus.IsDeletingNotesAllowed) {
             <div class="note__delete-icon"
                  data-keypress-handler="CTRL+Delete" title="You can also press CTRL+Delete when you have the textarea in focus"
-                 data-keypress-handler-id="note-@this.Data.Id"
-                 @onclick="@this.Delete">
+                 data-keypress-handler-id="note-@Data.Id"
+                 @onclick="@Delete">
                 <i class="fas fa-trash"></i>
             </div>
         }
 
         <textarea class="textarea note__content is-small has-fixed-size"
-                  data-keypress-handler-id="note-@this.Data.Id"
+                  data-keypress-handler-id="note-@Data.Id"
                   rows="1"
                   placeholder="Enter your text here" 
                   @bind-value="@TextData" 
                   @bind-value:event="oninput"
-                  @ref="this.TextBoxReference"></textarea>
+                  @ref="TextBoxReference"></textarea>
     }
     else
     {

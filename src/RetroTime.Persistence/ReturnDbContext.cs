@@ -16,7 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using RetroTime.Application.Common.Abstractions;
 using Conventions;
-using RetroTime.Domain.Entities;
+using Domain.Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;

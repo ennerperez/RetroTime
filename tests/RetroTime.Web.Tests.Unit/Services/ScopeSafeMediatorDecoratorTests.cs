@@ -66,9 +66,9 @@ public sealed class ScopeSafeMediatorDecoratorTests {
 
         public IAsyncEnumerable<object> CreateStream(object request, CancellationToken cancellationToken = new CancellationToken()) => throw new NotImplementedException();
 
-        public Task Publish(object notification, CancellationToken cancellationToken = new CancellationToken()) => throw new System.NotImplementedException();
+        public Task Publish(object notification, CancellationToken cancellationToken = new CancellationToken()) => throw new NotImplementedException();
 
-        public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = new CancellationToken()) where TNotification : INotification => throw new System.NotImplementedException();
+        public Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = new CancellationToken()) where TNotification : INotification => throw new NotImplementedException();
     }
 
     private sealed class FakeRequest : IRequest {

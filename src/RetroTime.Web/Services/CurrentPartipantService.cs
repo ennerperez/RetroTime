@@ -13,7 +13,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Common.Abstractions;
 using Application.Common.Models;
-using RetroTime.Common;
+using Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http;

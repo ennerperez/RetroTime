@@ -32,14 +32,14 @@
 
     private Task Continue()
     {
-        if (this.RetroId == null)
+        if (RetroId == null)
         {
             return Task.CompletedTask;  // Shouldn't happen, but ignore
         }
 
-        return this.Mediator.Send(new InitiateGroupingStageCommand
+        return Mediator.Send(new InitiateGroupingStageCommand
         {
-            RetroId = this.RetroId.StringId
+            RetroId = RetroId.StringId
         });
     }
 }

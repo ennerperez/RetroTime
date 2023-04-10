@@ -7,7 +7,7 @@
 
 namespace RetroTime.Infrastructure;
 
-using RetroTime.Common;
+using Common;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions {

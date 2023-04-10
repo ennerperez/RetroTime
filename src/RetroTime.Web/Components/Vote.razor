@@ -13,6 +13,6 @@
     [Parameter]
     public bool IsCast { get; set; }
 
-    private string CssClass => this.IsCast ? "fas" : "far";
-    private string TestElementId => this.IsCast ? "cast-vote" : "uncast-vote";
+    private string CssClass => IsCast ? "fas" : "far";
+    private string TestElementId => IsCast ? "cast-vote" : "uncast-vote";
 }

@@ -1,24 +1,24 @@
 @using RetroTime.Application.Common.Models
 @inherits NoteGroupBase
 
-<VoteList NoteGroup="@this.Data"/>
+<VoteList NoteGroup="@Data"/>
 
-<div class="note-group dropzone @(this.Classes)"
-     data-id="@this.Data.Id"
+<div class="note-group dropzone @Classes"
+     data-id="@Data.Id"
      data-test-element-id="note-group"
      @onclick="@ToggleExpand"
      ondragover="event.preventDefault();"
      @ondrop="@HandleDrop"
      @ondragenter="@HandleDragEnter"
      @ondragleave="@HandleDragLeave">
-    @if (this.CanEdit)
+    @if (CanEdit)
     {
         <div class="field has-addons" style="width: 100%">
             <div class="control is-expanded">
-                <input class="input note-group__title-input has-text-centered @(this.ShowError ? "is-danger" : (this.ShowWarning ? "is-warning" : null))"
+                <input class="input note-group__title-input has-text-centered @(ShowError ? "is-danger" : (ShowWarning ? "is-warning" : null))"
                        type="text"
                        placeholder="Group name"
-                       @bind="@this.DataTitle" />
+                       @bind="@DataTitle" />
             </div>
             <div class="control">
                 <button class="button is-danger is-outlined" @onclick="@DeleteNoteGroup">
@@ -30,11 +30,11 @@
     }
     else
     {
-        <h4 class="is-size-5 note-group__title @(String.IsNullOrEmpty(this.Data.Title) ? "note-group__title--not-set" : "")">@(String.IsNullOrEmpty(this.Data.Title) ? "Group name" : this.Data.Title)</h4>
+        <h4 class="is-size-5 note-group__title @(String.IsNullOrEmpty(Data.Title) ? "note-group__title--not-set" : "")">@(String.IsNullOrEmpty(Data.Title) ? "Group name" : Data.Title)</h4>
     }
 
     <div class="note-group-item-list">
-        @foreach (RetrospectiveNote note in this.Data.Notes)
+        @foreach (RetrospectiveNote note in Data.Notes)
         {
             <div class="note-group__item" @key="note.Id">
                 <Revealable>
@@ -44,12 +44,12 @@
         }
     </div>
 
-    @if (this.Data.Notes.Count == 0)
+    @if (Data.Notes.Count == 0)
     {
         <div class="box">
             <p>
                 This group is empty.
-                @if (this.CanEdit)
+                @if (CanEdit)
                 {
                     <text>Drag-and-drop notes here to add them to this group!</text>
                 }

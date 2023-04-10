@@ -1,24 +1,24 @@
 @using RetroTime.Application.Common.Models
 @inherits NoteLaneBase
 
-@if (this.Lane == null)
+@if (Lane == null)
 {
     return;
 }
 
 <CascadingValue Value="this">
-    <CascadingValue Value="this.Lane">
+    <CascadingValue Value="Lane">
         <h2 class="title has-text-centered">@Lane.Name</h2>
 
-        @if (this.Contents == null)
+        @if (Contents == null)
         {
             return;
         }
 
          @* Action section *@
-        @if (this.RetrospectiveStatus?.IsEditingNotesAllowed == true)
+        @if (RetrospectiveStatus?.IsEditingNotesAllowed == true)
         {
-            @if (this.ShowErrorMessage)
+            @if (ShowErrorMessage)
             {
                 <ErrorMessage />
             }
@@ -27,7 +27,7 @@
                 <button type="button"
                         class="button is-link is-outlined"
                         @onclick="@AddNote"
-                        data-keypress-handler="CTRL+@this.Order" title="You can also press CTRL+@this.Order"
+                        data-keypress-handler="CTRL+@Order" title="You can also press CTRL+@Order"
                         data-test-element-id="add-note-button">
                     <span class="icon">
                         <span class="fas fa-plus-square"></span>
@@ -41,7 +41,7 @@
 
         @if (IsGroupingAllowed())
         {
-            @if (this.ShowErrorMessage)
+            @if (ShowErrorMessage)
             {
                 <ErrorMessage/>
             }
@@ -50,7 +50,7 @@
                 <button type="button"
                         class="button is-link is-outlined"
                         @onclick="@AddNoteGroup"
-                        data-keypress-handler="CTRL+@this.Order" title="You can also press CTRL+@this.Order"
+                        data-keypress-handler="CTRL+@Order" title="You can also press CTRL+@Order"
                         data-test-element-id="add-note-group-button">
                     <span class="icon">
                         <span class="fas fa-plus-square"></span>
@@ -66,14 +66,14 @@
         @* Note groups section *@
         @if (DisplayGroupHeaders())
         {
-            @foreach (RetrospectiveNoteGroup noteGroup in this.Contents.Groups)
+            @foreach (RetrospectiveNoteGroup noteGroup in Contents.Groups)
             {
                 <Revealable @key="@("ng" + noteGroup.Id)">
                     <NoteGroup Data="@noteGroup" CanEdit="@IsGroupingAllowed()" />
                 </Revealable>
             }
 
-            @if (this.Contents.Groups.Count == 0)
+            @if (Contents.Groups.Count == 0)
             {
                 <div class="box">
                     <p>
@@ -89,17 +89,17 @@
         }
 
         @* Notes section *@
-        @if (DisplayGroupHeaders() == false || IsGroupingAllowed() || this.Contents.Notes.Count > 0)
+        @if (DisplayGroupHeaders() == false || IsGroupingAllowed() || Contents.Notes.Count > 0)
         {
-            @foreach (RetrospectiveNote note in this.Contents.Notes)
+            @foreach (RetrospectiveNote note in Contents.Notes)
             {
                 <Revealable @key="@("n" + note.Id)">
-                    <Note Data="@note" OnDeleted="@(r => this.OnNoteDeletedCallback(r))" IsLastAddedNote="@(note == this.LastAddedNote)" />
+                    <Note Data="@note" OnDeleted="@(r => OnNoteDeletedCallback(r))" IsLastAddedNote="@(note == LastAddedNote)" />
                 </Revealable>
             }
         }
 
-        @if (this.Contents.Notes.Count == 0 && this.Contents.Groups.Count == 0)
+        @if (Contents.Notes.Count == 0 && Contents.Groups.Count == 0)
         {
             <div class="box">
                 <p>

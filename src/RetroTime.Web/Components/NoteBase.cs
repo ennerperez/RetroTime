@@ -26,7 +26,7 @@ using Services;
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global", Justification = "Set by framework")]
 [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "We catch, log and display.")]
 [SuppressMessage("ReSharper", "MemberCanBePrivate.Global", Justification = "Needed for DI")]
-public abstract class NoteBase : SubscribingComponent<RetroTime.Application.Notifications.NoteUpdated.INoteUpdatedSubscriber>, RetroTime.Application.Notifications.NoteUpdated.INoteUpdatedSubscriber {
+public abstract class NoteBase : SubscribingComponent<INoteUpdatedSubscriber>, INoteUpdatedSubscriber {
     [Inject]
     public ILogger<Note> Logger { get; set; }
 

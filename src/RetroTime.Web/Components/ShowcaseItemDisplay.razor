@@ -1,17 +1,17 @@
 @using RetroTime.Application.Showcase.Queries
 
-<div class="showcase-item @this.CssClass">
-    <h3 class="showcase-item__title">@this.Data.Lane.Name</h3>
+<div class="showcase-item @CssClass">
+    <h3 class="showcase-item__title">@Data.Lane.Name</h3>
 
-     <CascadingValue Value="@this.Data.Lane" IsFixed="true">
-         @if (this.Data.Note != null)
+     <CascadingValue Value="@Data.Lane" IsFixed="true">
+         @if (Data.Note != null)
          {
-             <Note Data="@this.Data.Note"/>
+             <Note Data="@Data.Note"/>
          }
 
-         @if (this.Data.NoteGroup != null)
+         @if (Data.NoteGroup != null)
          {
-             <NoteGroup Data="@this.Data.NoteGroup" IsExpanded="@this.IsShown"/>
+             <NoteGroup Data="@Data.NoteGroup" IsExpanded="@IsShown"/>
          }
      </CascadingValue>
 </div>
@@ -27,18 +27,18 @@
     [Parameter]
     public int VisibleItemIndex { get; set; }
 
-    private bool IsShown => this.ItemIndex == this.VisibleItemIndex;
+    private bool IsShown => ItemIndex == VisibleItemIndex;
 
     private string CssClass
     {
         get
         {
-            if (this.IsShown)
+            if (IsShown)
             {
                 return "showcase-item--current";
             }
 
-            return this.ItemIndex < this.VisibleItemIndex ? "showcase-item--previous" : "showcase-item--next";
+            return ItemIndex < VisibleItemIndex ? "showcase-item--previous" : "showcase-item--next";
         }
     }
 }
