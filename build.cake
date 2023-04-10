@@ -158,7 +158,7 @@ Task("Restore-Node-Packages")
 
 	Information("Trying to restore packages using yarn");
 
-	exitCode = StartProjectDirProcess("yarn --production=false --frozen-lockfile --non-interactive");
+	exitCode = StartProjectDirProcess("yarn --production=false --non-interactive");
 
 	if (exitCode != 0) {
 		throw new CakeException($"'yarn' returned exit code {exitCode} (0x{exitCode:x2})");
