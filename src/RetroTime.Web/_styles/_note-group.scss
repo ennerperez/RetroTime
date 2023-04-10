@@ -16,13 +16,13 @@
     &__title,
     &__title:not(:last-child) {
         margin-bottom: 0.5rem;
-        font-weight: $weight-semibold;
+        font-weight: $font-weight-semibold; // $weight-semibold;
         text-align: center;
     }
 
     &__title {
         &--not-set {
-            color: $grey-light;
+            color: $gray-300; // $grey-light;
         }
     }
 

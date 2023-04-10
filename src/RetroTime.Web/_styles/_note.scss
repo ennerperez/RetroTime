@@ -6,7 +6,7 @@
 
 .note {
     padding: 0.5rem;
-    font-size: $size-7;
+    font-size: $h6-font-size; // $size-7;
     filter: grayscale(25%);
 
     &:focus-within,

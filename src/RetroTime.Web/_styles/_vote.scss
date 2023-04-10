@@ -57,7 +57,7 @@
 
     &__title,
     &__title:not(:last-child) {
-        font-size: $size-5;
+        font-size: $h5-font-size;// $size-5;
         margin-bottom: 0.2rem;
     }
 
@@ -72,7 +72,7 @@
     }
 
     &__personal-vote-status {
-        font-size: $size-7;
+        font-size: $h6-font-size; // $size-7;
         margin-top: 0;
     }
 }

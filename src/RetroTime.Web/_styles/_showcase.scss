@@ -31,10 +31,10 @@
     }
 
     &__title {
-        @extend .title;
+        //@extend .title;
 
         text-align: center;
-        font-size: $size-4;
+        font-size: $h4-font-size; // $size-4;
     }
 
     &--previous,
