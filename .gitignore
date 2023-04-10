@@ -181,4 +181,15 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 /src/App/stats.json
+
+# Idea
+.idea
+
+# Database
 *.db
+*.db-wal
+*.db-shm
+
+# Lock FIles
+*.lock
+*-lock.json

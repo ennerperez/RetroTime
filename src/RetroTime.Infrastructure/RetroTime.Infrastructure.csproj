@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RetroTime.Application\RetroTime.Application.csproj" />
+    <ProjectReference Include="..\RetroTime.Common\RetroTime.Common.csproj" />
+  </ItemGroup>
+</Project>

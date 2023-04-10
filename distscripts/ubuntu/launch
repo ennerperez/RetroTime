@@ -1,18 +1,18 @@
 #!/bin/bash
 
-RETURNRETRO_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-RETURNRETRO_APP_DIR=$RETURNRETRO_HOME/app
+RETROTIME_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+RETROTIME_APP_DIR=$RETROTIME_HOME/app
 SYSTEMD_MANIFEST_NAME=return-retro.service
 SYSTEMD_MANIFEST=/etc/systemd/system/$SYSTEMD_MANIFEST_NAME
 
-echo "Return-retro multi-purpose launch script ($RETURNRETRO_HOME)"
+echo "Return-retro multi-purpose launch script ($RETROTIME_HOME)"
 
 function run {
 	echo Set environment variables from launch.conf
-	source $RETURNRETRO_HOME/launch.conf
+	source $RETROTIME_HOME/launch.conf
 	
 	echo Starting application
-	cd $RETURNRETRO_APP_DIR
+	cd $RETROTIME_APP_DIR
 	exec ./Return.Web
 	
 	exit $?
@@ -35,16 +35,16 @@ function install {
 	echo "... Writing service manifest"
 	cat > $SYSTEMD_MANIFEST <<EOF
 [Unit]
-Description=Return Retro
+Description=RetroTime
 
 [Service]
-WorkingDirectory=$RETURNRETRO_HOME
-ExecStart=$RETURNRETRO_HOME/launch run
+WorkingDirectory=$RETROTIME_HOME
+ExecStart=$RETROTIME_HOME/launch run
 Restart=always
 
 # Restart service after 10 seconds if service crashes
 RestartSec=10
-SyslogIdentifier=return-retro
+SyslogIdentifier=retrotime
 User=$1
 
 [Install]
@@ -62,7 +62,7 @@ EOF
 	fi
 	
 	echo "... Ensuring execution permissions"
-	chmod +x $RETURNRETRO_APP_DIR/App
+	chmod +x $RETROTIME_APP_DIR/App
 }
 
 function uninstall {

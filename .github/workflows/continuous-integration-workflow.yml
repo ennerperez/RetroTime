@@ -22,10 +22,10 @@ jobs:
               with:
                   node-version: '14.x'
 
-            - name: Install .NET 7.x SDK for build
-              uses: actions/setup-dotnet@v2
+            - name: Install .NET 6.x SDK for build
+              uses: actions/setup-dotnet@v1
               with:
-                  dotnet-version: '7.0.100'
+                  dotnet-version: '6.0.10'
 
             - name: Output important software versions (node)
               run: node --version
@@ -49,10 +49,18 @@ jobs:
                   RETURN_TEST_WAIT_TIME: 30
               run: ${{ matrix.script_name }} --target=test --use-code-coverage=false --verbosity=verbose
 
-            - name: Upload artifacts
+            - name: Upload test logs (trx)
               uses: actions/upload-artifact@v1
-              continue-on-error: true
               if: always()
+              continue-on-error: true
               with:
-                  name: logs
+                  name: test results (trx)
                   path: build/testresults
+
+            - name: Upload test supplemental files
+              uses: actions/upload-artifact@v1
+              if: always()
+              continue-on-error: true
+              with:
+                  name: test screenshots
+                  path: build/testresults/artifacts/**/*.*

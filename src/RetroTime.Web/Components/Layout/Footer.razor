@@ -1,0 +1,19 @@
+@using System.Reflection
+@{
+    Assembly currentAssembly = typeof(Startup).Assembly;
+
+    string version = currentAssembly.GetName().Version?.ToString(3) ?? ThisAssembly.AssemblyFileVersion;
+    string uniqueVersionId = ThisAssembly.AssemblyInformationalVersion;
+}
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            <span title="@uniqueVersionId"><strong>RetroTime</strong> v@(version)</span> by <a href="https://damsteen.nl/">Sebastiaan Dammann</a> Refresh by <a href="https://ennerperez.dev/">Enner Pérez</a>
+            <a href="https://github.com/ennerperez/RetroTime" target="_blank" class="footer__gh-link">
+                <span class="icon"><span class="fab fa-github"></span></span>
+                <span>Github</span>
+            </a>
+        </p>
+    </div>
+</footer>
