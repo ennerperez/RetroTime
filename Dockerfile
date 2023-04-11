@@ -16,12 +16,12 @@ COPY src/RetroTime.Persistence/*.csproj src/RetroTime.Persistence/
 COPY src/RetroTime.Web/*.csproj src/RetroTime.Web/
 COPY src/*.props src/
 
-# # ... tests
-# COPY tests/RetroTime.Application.Tests.Unit/*.csproj tests/RetroTime.Application.Tests.Unit/
-# COPY tests/RetroTime.Domain.Tests.Unit/*.csproj tests/RetroTime.Domain.Tests.Unit/
-# COPY tests/RetroTime.Web.Tests.Unit/*.csproj tests/RetroTime.Web.Tests.Unit/
-# COPY tests/RetroTime.Web.Tests.Integration/*.csproj tests/RetroTime.Web.Tests.Integration/
-# COPY tests/*.props tests/
+# ... tests
+COPY tests/RetroTime.Application.Tests.Unit/*.csproj tests/RetroTime.Application.Tests.Unit/
+COPY tests/RetroTime.Domain.Tests.Unit/*.csproj tests/RetroTime.Domain.Tests.Unit/
+COPY tests/RetroTime.Web.Tests.Unit/*.csproj tests/RetroTime.Web.Tests.Unit/
+COPY tests/RetroTime.Web.Tests.Integration/*.csproj tests/RetroTime.Web.Tests.Integration/
+COPY tests/*.props tests/
 
 COPY *.sln .
 COPY *.props .

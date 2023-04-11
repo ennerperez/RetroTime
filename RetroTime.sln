@@ -57,7 +57,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{D6A25E
 		build.cmd = build.cmd
 		build.ps1 = build.ps1
 		build.sh = build.sh
-		docker-compose.test.yml = docker-compose.test.yml
+		docker-compose.publish.yml = docker-compose.publish.yml
 		LICENSE = LICENSE
 		package.json = package.json
 	EndProjectSection
