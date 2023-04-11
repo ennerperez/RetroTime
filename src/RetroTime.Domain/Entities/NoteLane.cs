@@ -1,11 +1,13 @@
 ﻿// ******************************************************************************
 //  © 2019 Sebastiaan Dammann | damsteen.nl
-// 
+//
 //  File:           : NoteLane.cs
 //  Project         : RetroTime.Domain
 // ******************************************************************************
 
 namespace RetroTime.Domain.Entities;
+
+using System.Drawing;
 
 /// <summary>
 /// A lane represents a place where notes go. A lane is one of "start", "stop", "continue"
@@ -16,4 +18,7 @@ public class NoteLane {
 #pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
     public string Name { get; set; }
 #pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
+
+    public int Color { get; set; }
+
 }

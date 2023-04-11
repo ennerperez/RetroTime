@@ -35,10 +35,10 @@ public sealed class RetrospectiveLobbyVotingTests : RetrospectiveLobbyTestsBase 
                 OutputId(id => bossId = id).
                 WithParticipant("Josh", false).
                 WithRetrospectiveStage(RetrospectiveStage.Writing).
-                WithNote(KnownNoteLane.Start, "Josh").
-                WithNote(KnownNoteLane.Continue, "Josh").
-                WithNote(KnownNoteLane.Continue, "Boss").
-                WithNote(KnownNoteLane.Continue, "Boss").
+                WithNote(KnownNoteLane.Good, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Boss").
+                WithNote(KnownNoteLane.Ideas, "Boss").
                 WithRetrospectiveStage(RetrospectiveStage.Grouping).
                 Build();
         }
@@ -79,11 +79,11 @@ public sealed class RetrospectiveLobbyVotingTests : RetrospectiveLobbyTestsBase 
                 WithParticipant("Josh", false).
                 OutputId(id => participantId = id).
                 WithRetrospectiveStage(RetrospectiveStage.Writing).
-                WithNote(KnownNoteLane.Start, "Josh").
-                WithNote(KnownNoteLane.Continue, "Josh").
-                WithNote(KnownNoteLane.Continue, "Boss").
-                WithNote(KnownNoteLane.Continue, "Boss").
-                WithNote(KnownNoteLane.Stop, "Boss").
+                WithNote(KnownNoteLane.Good, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Boss").
+                WithNote(KnownNoteLane.Ideas, "Boss").
+                WithNote(KnownNoteLane.Bad, "Boss").
                 WithRetrospectiveStage(RetrospectiveStage.Grouping).
                 Build();
         }
@@ -100,7 +100,7 @@ public sealed class RetrospectiveLobbyVotingTests : RetrospectiveLobbyTestsBase 
         await this.Client1.TimeInMinutesInput.FillAsync("10");
         await this.Client1.WorkflowContinueButton.ClickAsync();
 
-        var allLanes = new[] { KnownNoteLane.Start, KnownNoteLane.Stop, KnownNoteLane.Continue };
+        var allLanes = new[] { KnownNoteLane.Good, KnownNoteLane.Bad, KnownNoteLane.Ideas };
         foreach (KnownNoteLane noteLaneId in allLanes) {
             NoteLaneComponent noteLane = this.Client2.GetLane(noteLaneId);
 

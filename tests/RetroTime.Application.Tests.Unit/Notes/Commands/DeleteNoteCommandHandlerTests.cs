@@ -47,7 +47,7 @@ public sealed class DeleteNoteCommandHandlerTests : QueryTestBase {
             Substitute.For<ISecurityValidator>(),
             Substitute.For<IMediator>()
         );
-        var command = new DeleteNoteCommand("not found", (int)KnownNoteLane.Start);
+        var command = new DeleteNoteCommand("not found", (int)KnownNoteLane.Good);
 
         // When
         TestDelegate action = () => handler.Handle(command, CancellationToken.None).GetAwaiter().GetResult();

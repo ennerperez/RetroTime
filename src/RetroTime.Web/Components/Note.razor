@@ -4,7 +4,7 @@
     <VoteList Note="@Data"/>
 }
 
-<div class="box note @(Container?.IsGroupingAllowed() == true ? "draggable" : "") @(CanView() ? "" : "note--blurred") @(CanEdit() ? "note--editable" : "")" 
+<div class="box note rounded-2 p-2 @(Container?.IsGroupingAllowed() == true ? "draggable" : "") @(CanView() ? "" : "note--blurred") @(CanEdit() ? "note--editable" : "")"
      data-id="@Data.Id"
      data-test-element-id="note"
      draggable="@(Container?.IsGroupingAllowed() == true ? "true" : null)"
@@ -19,7 +19,7 @@
         }
 
         @if (RetrospectiveStatus.IsDeletingNotesAllowed) {
-            <div class="note__delete-icon"
+            <div class="m-2 note__delete-icon"
                  data-keypress-handler="CTRL+Delete" title="You can also press CTRL+Delete when you have the textarea in focus"
                  data-keypress-handler-id="note-@Data.Id"
                  @onclick="@Delete">
@@ -27,11 +27,11 @@
             </div>
         }
 
-        <textarea class="textarea note__content is-small has-fixed-size"
+        <textarea class="form-control textarea note__content is-small has-fixed-size"
                   data-keypress-handler-id="note-@Data.Id"
                   rows="1"
-                  placeholder="Enter your text here" 
-                  @bind-value="@TextData" 
+                  placeholder="Enter your text here"
+                  @bind-value="@TextData"
                   @bind-value:event="oninput"
                   @ref="TextBoxReference"></textarea>
     }

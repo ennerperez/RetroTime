@@ -205,7 +205,7 @@ public sealed class CastVoteCommandHandlerTests : QueryTestBase {
             Title = TestContext.CurrentContext.Test.FullName,
             CreationTimestamp = DateTimeOffset.Now,
             Participants = { new Participant { Name = "John" } },
-            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Continue), Title = "???" } }
+            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Ideas), Title = "???" } }
         };
         string retroId = retro.UrlId.StringId;
         this.Context.Retrospectives.Add(retro);
@@ -258,7 +258,7 @@ public sealed class CastVoteCommandHandlerTests : QueryTestBase {
             Title = TestContext.CurrentContext.Test.FullName,
             CreationTimestamp = DateTimeOffset.Now,
             Participants = { new Participant { Name = "John" } },
-            Notes = { new Note { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Continue), Text = "???" } }
+            Notes = { new Note { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Ideas), Text = "???" } }
         };
         Note note = retro.Notes.First();
         note.Participant = retro.Participants.First();

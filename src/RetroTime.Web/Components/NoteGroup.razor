@@ -3,7 +3,7 @@
 
 <VoteList NoteGroup="@Data"/>
 
-<div class="note-group dropzone @Classes"
+<div class="card p-2 note-group dropzone @Classes"
      data-id="@Data.Id"
      data-test-element-id="note-group"
      @onclick="@ToggleExpand"
@@ -13,20 +13,15 @@
      @ondragleave="@HandleDragLeave">
     @if (CanEdit)
     {
-        <div class="field has-addons" style="width: 100%">
-            <div class="control is-expanded">
-                <input class="input note-group__title-input has-text-centered @(ShowError ? "is-danger" : (ShowWarning ? "is-warning" : null))"
-                       type="text"
-                       placeholder="Group name"
-                       @bind="@DataTitle" />
-            </div>
-            <div class="control">
-                <button class="button is-danger is-outlined" @onclick="@DeleteNoteGroup">
-                    <i class="fas fa-trash is-danger"></i>
-                </button>
-            </div>
+        <div class="input-group mb-3" style="width: 100%">
+            <input class="form-control note-group__title-input has-text-centered @(ShowError ? "is-danger" : ( ShowWarning ? "is-warning" : null ))"
+                   type="text"
+                   placeholder="Group name"
+                   @bind="@DataTitle"/>
+            <button class="btn btn-danger" @onclick="@DeleteNoteGroup">
+                <i class="fas fa-trash is-danger"></i>
+            </button>
         </div>
-
     }
     else
     {
@@ -38,7 +33,7 @@
         {
             <div class="note-group__item" @key="note.Id">
                 <Revealable>
-                    <Note Data="@note" />
+                    <Note Data="@note"/>
                 </Revealable>
             </div>
         }
@@ -46,8 +41,8 @@
 
     @if (Data.Notes.Count == 0)
     {
-        <div class="box">
-            <p>
+        <div class="container">
+            <p class="small">
                 This group is empty.
                 @if (CanEdit)
                 {

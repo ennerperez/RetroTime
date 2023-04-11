@@ -43,6 +43,8 @@ namespace RetroTime.Web
             services.AddApplication();
             services.AddDomain();
 
+            services.AddScoped<ClipboardService>();
+
             services.AddScoped<ICurrentParticipantService, CurrentParticipantService>();
             services.AddSingleton<ISiteUrlDetectionService, SiteUrlDetectionService>();
 

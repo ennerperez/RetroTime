@@ -26,7 +26,7 @@ public sealed class GetRetrospectiveLaneContentQueryHandlerTests : QueryTestBase
     public void GetRetrospectiveLaneContentCommand_ReturnsEmpty_RetrospectiveNotFound() {
         // Given
         const string retroId = "surely-not-found";
-        var query = new GetRetrospectiveLaneContentQuery(retroId, (int)KnownNoteLane.Stop);
+        var query = new GetRetrospectiveLaneContentQuery(retroId, (int)KnownNoteLane.Bad);
         var handler = new GetRetrospectiveLaneContentQueryHandler(this.Context, this.Mapper, Substitute.For<ICurrentParticipantService>(), new TextAnonymizingService());
 
         // When
@@ -40,8 +40,8 @@ public sealed class GetRetrospectiveLaneContentQueryHandlerTests : QueryTestBase
     public async Task GetRetrospectiveLaneContentCommand_ReturnsNotesAnon_RetrospectiveFound() {
         // Given
         var participant1 = new Participant { Name = "John", Color = Color.BlueViolet };
-        var stopLane = this.Context.NoteLanes.Find(KnownNoteLane.Stop);
-        var startLane = this.Context.NoteLanes.Find(KnownNoteLane.Start);
+        var stopLane = this.Context.NoteLanes.Find(KnownNoteLane.Bad);
+        var startLane = this.Context.NoteLanes.Find(KnownNoteLane.Good);
         var retro = new Retrospective {
             Title = "Yet another test",
             Participants =
@@ -75,7 +75,7 @@ public sealed class GetRetrospectiveLaneContentQueryHandlerTests : QueryTestBase
         this.Context.Retrospectives.Add(retro);
         await this.Context.SaveChangesAsync(CancellationToken.None);
 
-        var query = new GetRetrospectiveLaneContentQuery(retroId, (int)KnownNoteLane.Stop);
+        var query = new GetRetrospectiveLaneContentQuery(retroId, (int)KnownNoteLane.Bad);
         var handler = new GetRetrospectiveLaneContentQueryHandler(this.Context, this.Mapper, Substitute.For<ICurrentParticipantService>(), new TextAnonymizingService());
 
         // When
@@ -91,8 +91,8 @@ public sealed class GetRetrospectiveLaneContentQueryHandlerTests : QueryTestBase
     public async Task GetRetrospectiveLaneContentCommand_ReturnsNotes_RetrospectiveFound() {
         // Given
         var participant1 = new Participant { Name = "John", Color = Color.BlueViolet };
-        var stopLane = this.Context.NoteLanes.Find(KnownNoteLane.Stop);
-        var startLane = this.Context.NoteLanes.Find(KnownNoteLane.Start);
+        var stopLane = this.Context.NoteLanes.Find(KnownNoteLane.Bad);
+        var startLane = this.Context.NoteLanes.Find(KnownNoteLane.Good);
         var retro = new Retrospective {
             Title = "Yet another test",
             Participants =
@@ -130,7 +130,7 @@ public sealed class GetRetrospectiveLaneContentQueryHandlerTests : QueryTestBase
 
         await this.Context.SaveChangesAsync(CancellationToken.None);
 
-        var query = new GetRetrospectiveLaneContentQuery(retroId, (int)KnownNoteLane.Stop);
+        var query = new GetRetrospectiveLaneContentQuery(retroId, (int)KnownNoteLane.Bad);
         var handler = new GetRetrospectiveLaneContentQueryHandler(this.Context, this.Mapper, Substitute.For<ICurrentParticipantService>(), new TextAnonymizingService());
 
         // When

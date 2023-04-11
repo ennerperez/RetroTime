@@ -1,6 +1,6 @@
 ﻿// ******************************************************************************
 //  © 2019 Sebastiaan Dammann | damsteen.nl
-// 
+//
 //  File:           : MappingTests.cs
 //  Project         : RetroTime.Application.Tests.Unit
 // ******************************************************************************
@@ -65,8 +65,8 @@ public sealed class MappingTests : MappingTestBase {
     public void ShouldMap_NoteLane_ToRetrospectiveLane() {
         // Given
         var entity = new NoteLane {
-            Id = KnownNoteLane.Stop,
-            Name = "Stop!!!"
+            Id = KnownNoteLane.Bad,
+            Name = "Bad!!!"
         };
 
         // When
@@ -148,7 +148,7 @@ public sealed class MappingTests : MappingTestBase {
                 Id = 49,
                 Lane = new NoteLane
                 {
-                    Id = KnownNoteLane.Stop
+                    Id = KnownNoteLane.Bad
                 }
             },
             Participant = new Participant
@@ -170,7 +170,7 @@ public sealed class MappingTests : MappingTestBase {
         Assert.That(mapped.ParticipantName, Is.EqualTo(entity.Participant.Name));
         Assert.That(mapped.ParticipantColor.G, Is.EqualTo(entity.Participant.Color.G));
 
-        Assert.That(mapped.LaneId, Is.EqualTo((int) KnownNoteLane.Stop));
+        Assert.That(mapped.LaneId, Is.EqualTo((int) KnownNoteLane.Bad));
         Assert.That(mapped.NoteId, Is.EqualTo(entity.Note.Id));
         Assert.That(mapped.NoteGroupId, Is.EqualTo(null));
         Assert.That(mapped.IsCast, Is.True);
@@ -187,7 +187,7 @@ public sealed class MappingTests : MappingTestBase {
                 Id = 49,
                 Lane = new NoteLane
                 {
-                    Id = KnownNoteLane.Stop
+                    Id = KnownNoteLane.Bad
                 }
             },
             Participant = new Participant
@@ -209,7 +209,7 @@ public sealed class MappingTests : MappingTestBase {
         Assert.That(mapped.ParticipantName, Is.EqualTo(entity.Participant.Name));
         Assert.That(mapped.ParticipantColor.G, Is.EqualTo(entity.Participant.Color.G));
 
-        Assert.That(mapped.LaneId, Is.EqualTo((int) KnownNoteLane.Stop));
+        Assert.That(mapped.LaneId, Is.EqualTo((int) KnownNoteLane.Bad));
         Assert.That(mapped.NoteGroupId, Is.EqualTo(entity.NoteGroup.Id));
         Assert.That(mapped.NoteId, Is.EqualTo(null));
         Assert.That(mapped.IsCast, Is.True);

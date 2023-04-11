@@ -1,10 +1,8 @@
 @using RetroTime.Domain.Entities
 
-<div class="retrospective-progress__item @CssClass">
-    <span>
-        @Text
-    </span>
-</div>
+<li class="nav-item retrospective-progress__item @this.CssClass">
+    <span class="nav-link">@this.Text</span>
+</li>
 
 @code {
     [Parameter]

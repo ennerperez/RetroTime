@@ -108,7 +108,7 @@ public sealed class ScreenshotTests : RetrospectiveLobbyTestsBase {
         // When
         TestContext.WriteLine("Attempting to find Note Lane button after state transition");
         Thread.Sleep(10000);
-        await this.Client2.GetLane(KnownNoteLane.Continue).AddNoteButton.Expected().ToBeVisibleAsync();
+        await this.Client2.GetLane(KnownNoteLane.Ideas).AddNoteButton.Expected().ToBeVisibleAsync();
 
         async Task WriteNote(RetrospectiveLobby client, KnownNoteLane laneId, string text) {
             NoteLaneComponent lane = client.GetLane(laneId);
@@ -120,7 +120,7 @@ public sealed class ScreenshotTests : RetrospectiveLobbyTestsBase {
             await addedNote.Input.FillAsync(text);
         }
 
-        await WriteNote(this.Client2, KnownNoteLane.Continue, "Using this framework, it works very productive");
+        await WriteNote(this.Client2, KnownNoteLane.Ideas, "Using this framework, it works very productive");
 
         using (IServiceScope scope = this.App.CreateTestServiceScope()) {
             await scope.TestCaseBuilder(this.RetroId).
@@ -131,44 +131,44 @@ public sealed class ScreenshotTests : RetrospectiveLobbyTestsBase {
                 WithParticipant("Josh", false).
                 WithParticipant("Patrick", false).
                 WithParticipant("Sarah", false).
-                WithNote(KnownNoteLane.Continue, "Sarah", text: "Framework with good productivity").
+                WithNote(KnownNoteLane.Ideas, "Sarah", text: "Framework with good productivity").
                 OutputId(id => this._continueFrameworkNoteId = id).
-                WithNote(KnownNoteLane.Continue, "Josh", text: "Daily standup").
+                WithNote(KnownNoteLane.Ideas, "Josh", text: "Daily standup").
                 OutputId(id => this._continueDailiesNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Continue, "Patrick", text: "Daily standups").
+                WithNote(KnownNoteLane.Ideas, "Patrick", text: "Daily standups").
                 OutputId(id => this._continueDailiesNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Continue, "Ashley", text: "Dailies").
+                WithNote(KnownNoteLane.Ideas, "Ashley", text: "Dailies").
                 OutputId(id => this._continueDailiesNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Stop, "Patrick", text: "Changing the backlog in the sprint").
+                WithNote(KnownNoteLane.Bad, "Patrick", text: "Changing the backlog in the sprint").
                 OutputId(id => this._stopBacklogUnstableNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Stop, "Aaron", text: "Backlog story changes in sprint").
+                WithNote(KnownNoteLane.Bad, "Aaron", text: "Backlog story changes in sprint").
                 OutputId(id => this._stopBacklogUnstableNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Stop, "Ashley", text: "Story backlog changes while sprint in progress").
+                WithNote(KnownNoteLane.Bad, "Ashley", text: "Story backlog changes while sprint in progress").
                 OutputId(id => this._stopBacklogUnstableNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Stop, "Ashley", text: "Adding more stories while sprint is in progress").
+                WithNote(KnownNoteLane.Bad, "Ashley", text: "Adding more stories while sprint is in progress").
                 OutputId(id => this._stopSprintScopeIncreasedNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Stop, "Josh", text: "Stop adding stories when sprint is underway").
+                WithNote(KnownNoteLane.Bad, "Josh", text: "Stop adding stories when sprint is underway").
                 OutputId(id => this._stopSprintScopeIncreasedNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Stop, "Josh", text: "Long kick-off, distractions in sprint").
+                WithNote(KnownNoteLane.Bad, "Josh", text: "Long kick-off, distractions in sprint").
                 OutputId(id => this._stopKickOffLongNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Stop, "Sarah", text: "Kick-off was very long").
+                WithNote(KnownNoteLane.Bad, "Sarah", text: "Kick-off was very long").
                 OutputId(id => this._stopKickOffLongNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Start, "Josh", text: "Start writing automated tests").
+                WithNote(KnownNoteLane.Good, "Josh", text: "Start writing automated tests").
                 OutputId(id => this._startAutomationGroupNoteIds.Add(id)).
-                WithNote(KnownNoteLane.Start, "Patrick", text: "Use a proper definition of done").
+                WithNote(KnownNoteLane.Good, "Patrick", text: "Use a proper definition of done").
                 OutputId(id => this._startNoteDefinitionOfDoneId = id).
-                WithNote(KnownNoteLane.Start, "Sarah", text: "Daily build should include basic tests").
+                WithNote(KnownNoteLane.Good, "Sarah", text: "Daily build should include basic tests").
                 OutputId(id => this._startAutomationGroupNoteIds.Add(id)).
                 Build();
         }
 
-        await WriteNote(this.Client1, KnownNoteLane.Start, "Daily builds should include automated smoke tests");
+        await WriteNote(this.Client1, KnownNoteLane.Good, "Daily builds should include automated smoke tests");
         this.AddLatestNoteIdToCollection(this._startAutomationGroupNoteIds);
 
-        await WriteNote(this.Client1, KnownNoteLane.Start, "Client should be present in retrospective");
+        await WriteNote(this.Client1, KnownNoteLane.Good, "Client should be present in retrospective");
         this._startClientRetroPresenceNoteId = this.GetLatestNoteId();
 
-        await WriteNote(this.Client2, KnownNoteLane.Continue, "Regular publish to acceptance environment");
+        await WriteNote(this.Client2, KnownNoteLane.Ideas, "Regular publish to acceptance environment");
         this._continueDailyBuildNoteId = this.GetLatestNoteId();
 
         await CreateDocScreenshot(this.Client2.BrowserPage, "writing");
@@ -197,15 +197,15 @@ public sealed class ScreenshotTests : RetrospectiveLobbyTestsBase {
 
             await scope.TestCaseBuilder(this.RetroId).
                 HasExistingParticipant("Roger").
-                WithNoteGroup("Roger", KnownNoteLane.Start, "Automated tests").
+                WithNoteGroup("Roger", KnownNoteLane.Good, "Automated tests").
                 OutputId(id => this._startAutomationGroupId = id).
-                WithNoteGroup("Roger", KnownNoteLane.Stop, "Kick-off long").
+                WithNoteGroup("Roger", KnownNoteLane.Bad, "Kick-off long").
                 OutputId(id => this._stopKickOffLongGroupId = id).
-                WithNoteGroup("Roger", KnownNoteLane.Stop, "Sprint scope increased").
+                WithNoteGroup("Roger", KnownNoteLane.Bad, "Sprint scope increased").
                 OutputId(id => this._stopSprintScopeIncreasedGroupId = id).
-                WithNoteGroup("Roger", KnownNoteLane.Stop, "Backlog unstable").
+                WithNoteGroup("Roger", KnownNoteLane.Bad, "Backlog unstable").
                 OutputId(id => this._stopBacklogUnstableNoteGroupId = id).
-                WithNoteGroup("Roger", KnownNoteLane.Continue, "Daily standups").
+                WithNoteGroup("Roger", KnownNoteLane.Ideas, "Daily standups").
                 OutputId(id => this._continueDailiesNoteGroupId = id).
                 Callback(builder => {
                     AddNotesToGroup(builder, this._startAutomationGroupId, this._startAutomationGroupNoteIds);

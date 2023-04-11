@@ -32,7 +32,7 @@ public sealed class DeleteNoteGroupCommandHandlerTests : QueryTestBase {
             Substitute.For<ISecurityValidator>(),
             mediator
         );
-        var command = new DeleteNoteGroupCommand("not found", (int)KnownNoteLane.Start);
+        var command = new DeleteNoteGroupCommand("not found", (int)KnownNoteLane.Good);
 
         // When
         await handler.Handle(command, CancellationToken.None);
@@ -57,7 +57,7 @@ public sealed class DeleteNoteGroupCommandHandlerTests : QueryTestBase {
             Title = TestContext.CurrentContext.Test.FullName,
             CreationTimestamp = DateTimeOffset.Now,
             Participants = { new Participant { Name = "John" } },
-            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Continue), Title = "???" } }
+            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Ideas), Title = "???" } }
         };
         string retroId = retro.UrlId.StringId;
         this.Context.Retrospectives.Add(retro);
@@ -90,7 +90,7 @@ public sealed class DeleteNoteGroupCommandHandlerTests : QueryTestBase {
             Title = TestContext.CurrentContext.Test.FullName,
             CreationTimestamp = DateTimeOffset.Now,
             Participants = { new Participant { Name = "John" } },
-            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Continue), Title = "???" } }
+            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Ideas), Title = "???" } }
         };
         string retroId = retro.UrlId.StringId;
         this.Context.Retrospectives.Add(retro);
@@ -112,7 +112,7 @@ public sealed class DeleteNoteGroupCommandHandlerTests : QueryTestBase {
             Assert.Fail("No broadcast has gone out");
         }
 
-        Assert.That(broadcastedDelete.LaneId, Is.EqualTo((int)KnownNoteLane.Continue));
+        Assert.That(broadcastedDelete.LaneId, Is.EqualTo((int)KnownNoteLane.Ideas));
         Assert.That(broadcastedDelete.RetroId, Is.EqualTo(command.RetroId));
         Assert.That(broadcastedDelete.GroupId, Is.EqualTo(noteGroup.Id));
 

@@ -15,7 +15,7 @@ using Domain.Entities;
 using Domain.Services;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using QRCoder;
+using Net.Codecrete.QrCodeGenerator;
 using RetroTime.Common;
 using Services;
 
@@ -41,7 +41,6 @@ public sealed class CreateRetrospectiveCommandHandler : IRequestHandler<CreateRe
             return !String.IsNullOrEmpty(plainText) ? this._passphraseService.CreateHashedPassphrase(plainText) : null;
         }
 
-        using var qrCodeGenerator = new QRCodeGenerator();
         var retrospective = new Retrospective {
             CreationTimestamp = this._systemClock.CurrentTimeOffset,
             Title = request.Title,
@@ -52,10 +51,12 @@ public sealed class CreateRetrospectiveCommandHandler : IRequestHandler<CreateRe
         this._logger.LogInformation($"Creating new retrospective with id {retrospective.UrlId}");
 
         string retroLocation = this._urlGenerator.GenerateUrlToRetrospectiveLobby(retrospective.UrlId).ToString();
-        var payload = new PayloadGenerator.Url(retroLocation);
+
+        var qrCode =  QrCode.EncodeText(retroLocation, QrCode.Ecc.Low);
+
         var result = new CreateRetrospectiveCommandResponse(
             retrospective.UrlId,
-            new QrCode(qrCodeGenerator.CreateQrCode(payload.ToString(), QRCodeGenerator.ECCLevel.L)),
+            qrCode,
             retroLocation);
 
         this._returnDbContext.Retrospectives.Add(retrospective);

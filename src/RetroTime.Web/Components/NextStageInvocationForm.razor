@@ -16,24 +16,19 @@
 
     @ChildContent
 
-    <div class="field">
-        <label class="label">@TimeLabelText</label>
-
-        <div class="control">
-            <div class="control has-icons-left">
-                <InputNumber min="1" max="30" class="input" data-test-element-id="time-in-minutes-input" @bind-Value="@Model.TimeInMinutes" style="width: 8em" />
-                <span class="icon is-small is-left">
-                    <i class="fas fa-stopwatch"></i>
-                </span>
-             </div>
-            <ValidationMessage For="() => Model.TimeInMinutes" />
+    <div class="mt-3">
+        <label class="form-label">@TimeLabelText</label>
+        <div class="input-group mb-3">
+            <InputNumber class="form-control" min="1" max="30" data-test-element-id="time-in-minutes-input" @bind-Value="@Model.TimeInMinutes" style="width: 8em" />
+            <span class="input-group-text">
+                <i class="fas fa-stopwatch"></i>
+            </span>
         </div>
+        <ValidationMessage For="() => Model.TimeInMinutes" />
     </div>
 
-    <div class="field">
-        <div class="control">
-            <button type="submit" class="button is-primary is-large" data-test-element-id="workflow-continue-button">@ButtonText</button>
-        </div>
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary btn-lg" data-test-element-id="workflow-continue-button">@ButtonText</button>
     </div>
 </EditForm>
 

@@ -80,15 +80,15 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
         await this.WaitNavigatedToLobby();
 
         // When
-        NoteLaneComponent noteLane = this.Client2.GetLane(KnownNoteLane.Continue);
+        NoteLaneComponent noteLane = this.Client2.GetLane(KnownNoteLane.Ideas);
         await noteLane.AddNoteButton.ClickAsync();
 
         // Then
         await this.MultiAssert(async client =>
         {
-            await client.GetLane(KnownNoteLane.Continue).NoteElements.Expected().ToHaveCountAsync(1);
-            await client.GetLane(KnownNoteLane.Start).NoteElements.Expected().ToHaveCountAsync(0);
-            await client.GetLane(KnownNoteLane.Stop).NoteElements.Expected().ToHaveCountAsync(0);
+            await client.GetLane(KnownNoteLane.Ideas).NoteElements.Expected().ToHaveCountAsync(1);
+            await client.GetLane(KnownNoteLane.Good).NoteElements.Expected().ToHaveCountAsync(0);
+            await client.GetLane(KnownNoteLane.Bad).NoteElements.Expected().ToHaveCountAsync(0);
         });
 
         // When
@@ -97,7 +97,7 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
         await note.Input.FillAsync(noteText);
 
         // Then
-        NoteComponent client2Note = (await this.Client1.GetLane(KnownNoteLane.Continue).Notes()).First();
+        NoteComponent client2Note = (await this.Client1.GetLane(KnownNoteLane.Ideas).Notes()).First();
         await client2Note.Content.Expected().ToBeVisibleAsync();
 
         string text = await client2Note.Content.TextContentAsync();
@@ -114,11 +114,11 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
                 WithParticipant("Boss", true, "scrummaster").
                 WithParticipant("Josh", false).
                 WithRetrospectiveStage(RetrospectiveStage.Writing).
-                WithNote(KnownNoteLane.Start, "Josh").
-                WithNote(KnownNoteLane.Continue, "Josh").
-                WithNote(KnownNoteLane.Continue, "Boss").
+                WithNote(KnownNoteLane.Good, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Boss").
                 OutputId(id => noteId = id).
-                WithNote(KnownNoteLane.Continue, "Boss").
+                WithNote(KnownNoteLane.Ideas, "Boss").
                 Build();
         }
 
@@ -130,19 +130,19 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
         await this.WaitNavigatedToLobby();
 
         await this.MultiAssert(async client => {
-            await client.GetLane(KnownNoteLane.Continue).NoteElements.Expected().ToHaveCountAsync(3);
-            await client.GetLane(KnownNoteLane.Start).NoteElements.Expected().ToHaveCountAsync(1);
-            await client.GetLane(KnownNoteLane.Stop).NoteElements.Expected().ToHaveCountAsync(0);
+            await client.GetLane(KnownNoteLane.Ideas).NoteElements.Expected().ToHaveCountAsync(3);
+            await client.GetLane(KnownNoteLane.Good).NoteElements.Expected().ToHaveCountAsync(1);
+            await client.GetLane(KnownNoteLane.Bad).NoteElements.Expected().ToHaveCountAsync(0);
         });
 
         // When
-        NoteLaneComponent noteLane = this.Client1.GetLane(KnownNoteLane.Continue);
+        NoteLaneComponent noteLane = this.Client1.GetLane(KnownNoteLane.Ideas);
         NoteComponent note = (await noteLane.Notes()).First(n => n.Id == noteId);
         await note.DeleteButton.ClickAsync();
 
         // Then
         await this.MultiAssert(async client => {
-            NoteLaneComponent clientNoteLane = client.GetLane(KnownNoteLane.Continue);
+            NoteLaneComponent clientNoteLane = client.GetLane(KnownNoteLane.Ideas);
 
             await clientNoteLane.NoteElements.Expected().ToHaveCountAsync(2);
 
@@ -160,11 +160,11 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
                 WithParticipant("Boss", true, "scrummaster").
                 WithParticipant("Josh", false).
                 WithRetrospectiveStage(RetrospectiveStage.Writing).
-                WithNote(KnownNoteLane.Start, "Josh").
-                WithNote(KnownNoteLane.Continue, "Josh").
-                WithNote(KnownNoteLane.Continue, "Boss").
+                WithNote(KnownNoteLane.Good, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Boss").
                 OutputId(id => noteId = id).
-                WithNote(KnownNoteLane.Continue, "Boss").
+                WithNote(KnownNoteLane.Ideas, "Boss").
                 Build();
         }
 
@@ -176,13 +176,13 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
         await this.WaitNavigatedToLobby();
 
         await this.MultiAssert(async client => {
-            await client.GetLane(KnownNoteLane.Continue).NoteElements.Expected().ToHaveCountAsync(3);
-            await client.GetLane(KnownNoteLane.Start).NoteElements.Expected().ToHaveCountAsync(1);
-            await client.GetLane(KnownNoteLane.Stop).NoteElements.Expected().ToHaveCountAsync(0);
+            await client.GetLane(KnownNoteLane.Ideas).NoteElements.Expected().ToHaveCountAsync(3);
+            await client.GetLane(KnownNoteLane.Good).NoteElements.Expected().ToHaveCountAsync(1);
+            await client.GetLane(KnownNoteLane.Bad).NoteElements.Expected().ToHaveCountAsync(0);
         });
 
         // When
-        NoteLaneComponent noteLane = this.Client1.GetLane(KnownNoteLane.Continue);
+        NoteLaneComponent noteLane = this.Client1.GetLane(KnownNoteLane.Ideas);
         NoteComponent note = (await noteLane.Notes()).First(n => n.Id == noteId);
 
         await note.Input.FocusAsync();
@@ -193,7 +193,7 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
 
         // Then
         await this.MultiAssert(async client => {
-            NoteLaneComponent clientNoteLane = client.GetLane(KnownNoteLane.Continue);
+            NoteLaneComponent clientNoteLane = client.GetLane(KnownNoteLane.Ideas);
 
             await clientNoteLane.NoteElements.Expected().ToHaveCountAsync(2);
 
@@ -215,7 +215,7 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
         await this.WaitNavigatedToLobby();
 
         // When
-        int laneNumber = (int)KnownNoteLane.Continue;
+        int laneNumber = (int)KnownNoteLane.Ideas;
 
         IKeyboard keyboard = this.Client2.BrowserPage.Keyboard;
         await keyboard.DownAsync("Control");
@@ -224,19 +224,19 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
 
         // Then
         await this.MultiAssert(async client => {
-            await client.GetLane(KnownNoteLane.Continue).NoteElements.Expected().ToHaveCountAsync(1);
-            await client.GetLane(KnownNoteLane.Start).NoteElements.Expected().ToHaveCountAsync(0);
-            await client.GetLane(KnownNoteLane.Stop).NoteElements.Expected().ToHaveCountAsync(0);
+            await client.GetLane(KnownNoteLane.Ideas).NoteElements.Expected().ToHaveCountAsync(1);
+            await client.GetLane(KnownNoteLane.Good).NoteElements.Expected().ToHaveCountAsync(0);
+            await client.GetLane(KnownNoteLane.Bad).NoteElements.Expected().ToHaveCountAsync(0);
         });
 
         // When
-        NoteLaneComponent noteLane = this.Client2.GetLane(KnownNoteLane.Continue);
+        NoteLaneComponent noteLane = this.Client2.GetLane(KnownNoteLane.Ideas);
         NoteComponent note = (await noteLane.Notes()).First();
         string noteText = "some content which does not really matter to me";
         await note.Input.FillAsync(noteText);
 
         // Then
-        NoteComponent client2Note = (await this.Client1.GetLane(KnownNoteLane.Continue).Notes()).First();
+        NoteComponent client2Note = (await this.Client1.GetLane(KnownNoteLane.Ideas).Notes()).First();
         await client2Note.Content.Expected().ToBeVisibleAsync();
 
         string text = await client2Note.Content.TextContentAsync();
@@ -257,18 +257,18 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
                 WithParticipant("Bar", false).
                 WithParticipant("Baz", false).
                 WithRetrospectiveStage(RetrospectiveStage.Writing).
-                WithNote(KnownNoteLane.Start, "Josh").
+                WithNote(KnownNoteLane.Good, "Josh").
                 OutputId(id => note1Id = id).
-                WithNote(KnownNoteLane.Continue, "Boss").
-                WithNote(KnownNoteLane.Continue, "Bar").
-                WithNote(KnownNoteLane.Continue, "Baz").
-                WithNote(KnownNoteLane.Stop, "Foo").
-                WithNote(KnownNoteLane.Start, "Foo").
+                WithNote(KnownNoteLane.Ideas, "Boss").
+                WithNote(KnownNoteLane.Ideas, "Bar").
+                WithNote(KnownNoteLane.Ideas, "Baz").
+                WithNote(KnownNoteLane.Bad, "Foo").
+                WithNote(KnownNoteLane.Good, "Foo").
                 OutputId(id => note2Id = id).
-                WithNote(KnownNoteLane.Start, "Boss").
+                WithNote(KnownNoteLane.Good, "Boss").
                 WithRetrospectiveStage(RetrospectiveStage.Grouping).
-                WithNoteGroup("Boss", KnownNoteLane.Continue, "Cont name").
-                WithNoteGroup("Boss", KnownNoteLane.Start, "Some name").
+                WithNoteGroup("Boss", KnownNoteLane.Ideas, "Cont name").
+                WithNoteGroup("Boss", KnownNoteLane.Good, "Some name").
                 OutputId(id => noteGroupId = id).
                 Build();
         }
@@ -299,7 +299,7 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
 
         // Then
         await this.MultiAssert(async client => {
-            NoteLaneComponent noteLane = client.GetLane(KnownNoteLane.Start);
+            NoteLaneComponent noteLane = client.GetLane(KnownNoteLane.Good);
             NoteGroupComponent noteGroup = (await noteLane.NoteGroups()).First(x => x.Id == noteGroupId);
 
             List<NoteComponent> notes = await noteGroup.Notes();
@@ -319,15 +319,15 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
                 WithParticipant("Bar", false).
                 WithParticipant("Baz", false).
                 WithRetrospectiveStage(RetrospectiveStage.Writing).
-                WithNote(KnownNoteLane.Start, "Josh").
-                WithNote(KnownNoteLane.Continue, "Boss").
-                WithNote(KnownNoteLane.Continue, "Bar").
-                WithNote(KnownNoteLane.Continue, "Baz").
-                WithNote(KnownNoteLane.Stop, "Foo").
-                WithNote(KnownNoteLane.Start, "Foo").
-                WithNote(KnownNoteLane.Start, "Boss").
+                WithNote(KnownNoteLane.Good, "Josh").
+                WithNote(KnownNoteLane.Ideas, "Boss").
+                WithNote(KnownNoteLane.Ideas, "Bar").
+                WithNote(KnownNoteLane.Ideas, "Baz").
+                WithNote(KnownNoteLane.Bad, "Foo").
+                WithNote(KnownNoteLane.Good, "Foo").
+                WithNote(KnownNoteLane.Good, "Boss").
                 WithRetrospectiveStage(RetrospectiveStage.Grouping).
-                WithNoteGroup("Boss", KnownNoteLane.Start, "Some name").
+                WithNoteGroup("Boss", KnownNoteLane.Good, "Some name").
                 Build();
         }
 
@@ -339,14 +339,14 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
         await this.WaitNavigatedToLobby();
 
         // When
-        NoteLaneComponent noteLane = this.Client1.GetLane(KnownNoteLane.Continue);
+        NoteLaneComponent noteLane = this.Client1.GetLane(KnownNoteLane.Ideas);
         await noteLane.AddNoteGroupButton.ClickAsync();
 
         // Then
         await this.MultiAssert(async client => {
-            await client.GetLane(KnownNoteLane.Continue).NoteGroupElements.Expected().ToHaveCountAsync(1);
-            await client.GetLane(KnownNoteLane.Start).NoteGroupElements.Expected().ToHaveCountAsync(1);
-            await client.GetLane(KnownNoteLane.Stop).NoteGroupElements.Expected().ToHaveCountAsync(0);
+            await client.GetLane(KnownNoteLane.Ideas).NoteGroupElements.Expected().ToHaveCountAsync(1);
+            await client.GetLane(KnownNoteLane.Good).NoteGroupElements.Expected().ToHaveCountAsync(1);
+            await client.GetLane(KnownNoteLane.Bad).NoteGroupElements.Expected().ToHaveCountAsync(0);
         });
 
         // When
@@ -357,7 +357,7 @@ public sealed class RetrospectiveLobbyWorkflowTests : RetrospectiveLobbyTestsBas
         await this.Client1.Unfocus(); // Unfocus to propagate change
 
         // Then
-        NoteGroupComponent client2NoteGroup = (await this.Client2.GetLane(KnownNoteLane.Continue).NoteGroups()).First(x => x.Id == lastAddedNoteGroupId);
+        NoteGroupComponent client2NoteGroup = (await this.Client2.GetLane(KnownNoteLane.Ideas).NoteGroups()).First(x => x.Id == lastAddedNoteGroupId);
         await client2NoteGroup.Title.Expected().ToHaveTextAsync(noteText);
     }
 }

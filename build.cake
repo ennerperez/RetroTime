@@ -447,7 +447,7 @@ Task("Test-PreReq-Playwright-Browser")
 });
 
 Task("Test-CS")
-    .Description("Test backend-end compiled code");
+     .Description("Test backend-end compiled code");
 
 Task("Test")
     .IsDependentOn("Test-CS")
@@ -460,7 +460,8 @@ Task("Test")
 Task("None");
 
 Task("Default")
-    .IsDependentOn("Test");
+    .IsDependentOn("Publish");
+    //.IsDependentOn("Test");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION

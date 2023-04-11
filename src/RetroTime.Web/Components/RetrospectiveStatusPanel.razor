@@ -1,7 +1,7 @@
 @using RetroTime.Domain.Entities
 
-<article class="message retrospective-status-panel">
-    <div class="message-header">
+<article class="card retrospective-status-panel">
+    <div class="card-header bg-dark text-light">
         @* Each stage has its own title *@
         <RetrospectiveStageText ApplicableTo="@RetrospectiveStage.NotStarted"
                                 Text="Not started yet" />
@@ -16,7 +16,7 @@
         <RetrospectiveStageText ApplicableTo="@RetrospectiveStage.Finished"
                                 Text="Finished" />
     </div>
-    <div class="message-body">
+    <div class="card-body">
         @* Each stage has its own explanation *@
         <p class="retrospective-status-panel__primary-explanation">
             <RetrospectiveStageText ApplicableTo="@RetrospectiveStage.NotStarted"

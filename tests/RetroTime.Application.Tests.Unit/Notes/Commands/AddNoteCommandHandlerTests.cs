@@ -49,7 +49,7 @@ public sealed class AddNoteCommandHandlerTests : QueryTestBase {
             this.Mapper,
             this._systemClock
         );
-        var command = new AddNoteCommand("not found", (int)KnownNoteLane.Start);
+        var command = new AddNoteCommand("not found", (int)KnownNoteLane.Good);
 
         // When
         TestDelegate action = () => handler.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
@@ -115,7 +115,7 @@ public sealed class AddNoteCommandHandlerTests : QueryTestBase {
         this.Context.Retrospectives.Add(retro);
         await this.Context.SaveChangesAsync();
 
-        var command = new AddNoteCommand(retroId, (int)KnownNoteLane.Start);
+        var command = new AddNoteCommand(retroId, (int)KnownNoteLane.Good);
 
         // When
         RetrospectiveNote result = await handler.Handle(command, CancellationToken.None);
@@ -133,7 +133,7 @@ public sealed class AddNoteCommandHandlerTests : QueryTestBase {
             Assert.Fail("No broadcast has gone out");
         }
 
-        Assert.That(broadcastedNote.LaneId, Is.EqualTo((int)KnownNoteLane.Start));
+        Assert.That(broadcastedNote.LaneId, Is.EqualTo((int)KnownNoteLane.Good));
         Assert.That(broadcastedNote.RetroId, Is.EqualTo(command.RetroId));
         Assert.That(broadcastedNote.Note.IsOwnedByCurrentUser, Is.False);
     }

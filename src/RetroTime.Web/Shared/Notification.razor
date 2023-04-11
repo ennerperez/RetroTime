@@ -1,14 +1,13 @@
-@if (IsHidden == false)
+@if (this.IsHidden == false)
 {
-    <div class="notification @GetCssClass()">
-        <button class="delete" @onclick="HideNotification"></button>
-
+    <div class="alert alert-@GetCssClass() alert-dismissible fade show" role="alert">
         @ChildContent
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" @onclick="HideNotification"></button>
     </div>
 }
 
 @code {
-    #nullable disable
+#nullable disable
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
@@ -21,18 +20,18 @@
 
     private string GetCssClass()
     {
-        switch (Type)
+        switch (this.Type)
         {
             case NotificationType.Primary:
-                return "is-primary";
+                return "primary";
             case NotificationType.Link:
-                return "is-link";
+                return "link";
             case NotificationType.Info:
-                return "is-info";
+                return "info";
             case NotificationType.Warning:
-                return "is-warning";
+                return "warning";
             case NotificationType.Danger:
-                return "is-danger";
+                return "danger";
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -40,7 +39,7 @@
 
     public void HideNotification()
     {
-        IsHidden = true;
+        this.IsHidden = true;
     }
 
     public enum NotificationType

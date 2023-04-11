@@ -19,6 +19,8 @@ public sealed class RetrospectiveLane : IMapFrom<NoteLane> {
 
     public string Name { get; set; }
 
+    public int Color { get; set; }
+
     public void Mapping(Profile profile) {
         if (profile == null) throw new ArgumentNullException(nameof(profile));
 

@@ -3,7 +3,7 @@
 @using RetroTime.Common
 @inject ISystemClock SystemClock
 
-<div class="has-text-centered @GetCssClass()">
+<div class="text-center @GetCssClass()">
     <Timer @ref="@_waitTimer"
             Percent="@CalculatePercent()"
             Text="@GetTimerText()"

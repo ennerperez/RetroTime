@@ -33,7 +33,7 @@ public sealed class AddNoteGroupCommandHandlerTests : QueryTestBase {
             this.Mapper,
             Substitute.For<IMediator>()
         );
-        var command = new AddNoteGroupCommand("not found", (int)KnownNoteLane.Start);
+        var command = new AddNoteGroupCommand("not found", (int)KnownNoteLane.Good);
 
         // When
         TestDelegate action = () => handler.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
@@ -96,7 +96,7 @@ public sealed class AddNoteGroupCommandHandlerTests : QueryTestBase {
         this.Context.Retrospectives.Add(retro);
         await this.Context.SaveChangesAsync();
 
-        var command = new AddNoteGroupCommand(retroId, (int)KnownNoteLane.Start);
+        var command = new AddNoteGroupCommand(retroId, (int)KnownNoteLane.Good);
 
         // When
         RetrospectiveNoteGroup result = await handler.Handle(command, CancellationToken.None);
@@ -113,7 +113,7 @@ public sealed class AddNoteGroupCommandHandlerTests : QueryTestBase {
             Assert.Fail("No broadcast has gone out");
         }
 
-        Assert.That(broadcastedUpdate.LaneId, Is.EqualTo((int)KnownNoteLane.Start));
+        Assert.That(broadcastedUpdate.LaneId, Is.EqualTo((int)KnownNoteLane.Good));
         Assert.That(broadcastedUpdate.RetroId, Is.EqualTo(command.RetroId));
         Assert.That(broadcastedUpdate.GroupId, Is.EqualTo(result.Id));
     }

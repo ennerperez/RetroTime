@@ -2,48 +2,47 @@
 
 <aside class="menu">
     <TopMenu BrandIsClickable="false">
-        <div class="navbar-start navbar-retrospective-start">
-            <div class="navbar-item">
-                <h1 class="retrospective-title">@_layoutInfo.Title</h1>
-            </div>
-        </div>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <NavLink class="nav-link" href="#" Match="NavLinkMatch.All">
+                    @this._layoutInfo.Title
+                </NavLink>
+            </li>
+        </ul>
+        <div class="retrospective-progress-container">
+            <ul class="navbar-nav retrospective-progress @(CurrentStage == RetrospectiveStage.NotStarted ? "retrospective-progress--inactive" : String.Empty)">
+                <RetrospectiveProgressItem
+                    CurrentStage="@CurrentStage"
+                    ApplicableTo="@RetrospectiveStage.Writing"
+                    Text="Write"/>
 
-        <div class="navbar-end">
-            <div class="navbar-item retrospective-progress-container">
-                <div class="retrospective-progress @(CurrentStage == RetrospectiveStage.NotStarted ? "retrospective-progress--inactive" : String.Empty)">
-                    <RetrospectiveProgressItem
-                        CurrentStage="@CurrentStage"
-                        ApplicableTo="@RetrospectiveStage.Writing"
-                        Text="Write"/>
+                <RetrospectiveProgressItem
+                    CurrentStage="@CurrentStage"
+                    ApplicableTo="@RetrospectiveStage.Discuss"
+                    Text="Discuss"/>
 
-                    <RetrospectiveProgressItem
-                        CurrentStage="@CurrentStage"
-                        ApplicableTo="@RetrospectiveStage.Discuss"
-                        Text="Discuss"/>
+                <RetrospectiveProgressItem
+                    CurrentStage="@CurrentStage"
+                    ApplicableTo="@RetrospectiveStage.Grouping"
+                    Text="Group"/>
 
-                    <RetrospectiveProgressItem
-                        CurrentStage="@CurrentStage"
-                        ApplicableTo="@RetrospectiveStage.Grouping"
-                        Text="Group"/>
+                <RetrospectiveProgressItem
+                    CurrentStage="@CurrentStage"
+                    ApplicableTo="@RetrospectiveStage.Voting"
+                    Text="Vote"/>
 
-                    <RetrospectiveProgressItem
-                        CurrentStage="@CurrentStage"
-                        ApplicableTo="@RetrospectiveStage.Voting"
-                        Text="Vote"/>
-
-                    <RetrospectiveProgressItem
-                        CurrentStage="@CurrentStage"
-                        ApplicableTo="@RetrospectiveStage.Finished"
-                        Text="Finished"/>
-                </div>
-            </div>
+                <RetrospectiveProgressItem
+                    CurrentStage="@CurrentStage"
+                    ApplicableTo="@RetrospectiveStage.Finished"
+                    Text="Finished"/>
+            </ul>
         </div>
     </TopMenu>
 </aside>
 
 @code
 {
-    #nullable disable
+#nullable disable
     private RetrospectiveLayoutInfo _layoutInfo = new RetrospectiveLayoutInfo("Loading...");
 
     private RetrospectiveStage CurrentStage => _layoutInfo.Stage ?? RetrospectiveStage.NotStarted;

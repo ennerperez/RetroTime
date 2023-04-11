@@ -9,7 +9,7 @@ namespace RetroTime.Application.Retrospectives.Commands.CreateRetrospective;
 
 using System.Drawing;
 using Domain.ValueObjects;
-using QRCoder;
+using Net.Codecrete.QrCodeGenerator;
 
 public sealed class CreateRetrospectiveCommandResponse {
     public RetroIdentifier Identifier { get; }
@@ -23,17 +23,17 @@ public sealed class CreateRetrospectiveCommandResponse {
     }
 }
 
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1815:Override equals and operator equals on value types", Justification = "<Pending>")]
-public readonly struct QrCode {
-    private readonly QRCodeData _qrCodeData;
-
-    public QrCode(QRCodeData qrCodeData) {
-        this._qrCodeData = qrCodeData;
-    }
-
-    public string ToBase64() {
-        using var base64QrCode = new Base64QRCode(this._qrCodeData);
-
-        return "data:image/png;base64," + base64QrCode.GetGraphic(5, Color.Black, Color.Transparent);
-    }
-}
+// [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1815:Override equals and operator equals on value types", Justification = "<Pending>")]
+// public readonly struct QrCode {
+//     private readonly QRCodeData _qrCodeData;
+//
+//     public QrCode(QRCodeData qrCodeData) {
+//         this._qrCodeData = qrCodeData;
+//     }
+//
+//     public string ToBase64() {
+//         using var base64QrCode = new Base64QRCode(this._qrCodeData);
+//
+//         return "data:image/png;base64," + base64QrCode.GetGraphic(5, Color.Black, Color.Transparent);
+//     }
+// }

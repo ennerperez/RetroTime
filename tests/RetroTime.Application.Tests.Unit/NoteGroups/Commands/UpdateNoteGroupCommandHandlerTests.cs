@@ -33,7 +33,7 @@ public sealed class UpdateNoteGroupCommandHandlerTests : QueryTestBase {
             Substitute.For<ISecurityValidator>(),
             Substitute.For<IMediator>()
         );
-        var command = new UpdateNoteGroupCommand("not found", (int)KnownNoteLane.Start, "Foo");
+        var command = new UpdateNoteGroupCommand("not found", (int)KnownNoteLane.Good, "Foo");
 
         // When
         TestDelegate action = () => handler.Handle(command, CancellationToken.None).GetAwaiter().GetResult();
@@ -57,7 +57,7 @@ public sealed class UpdateNoteGroupCommandHandlerTests : QueryTestBase {
             Title = TestContext.CurrentContext.Test.FullName,
             CreationTimestamp = DateTimeOffset.Now,
             Participants = { new Participant { Name = "John" } },
-            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Continue), Title = "???" } }
+            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Ideas), Title = "???" } }
         };
         string retroId = retro.UrlId.StringId;
         this.Context.Retrospectives.Add(retro);
@@ -90,7 +90,7 @@ public sealed class UpdateNoteGroupCommandHandlerTests : QueryTestBase {
             Title = TestContext.CurrentContext.Test.FullName,
             CreationTimestamp = DateTimeOffset.Now,
             Participants = { new Participant { Name = "John" } },
-            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Continue), Title = "???" } }
+            NoteGroup = { new NoteGroup { Lane = this.Context.NoteLanes.Find(KnownNoteLane.Ideas), Title = "???" } }
         };
         string retroId = retro.UrlId.StringId;
         this.Context.Retrospectives.Add(retro);
@@ -111,7 +111,7 @@ public sealed class UpdateNoteGroupCommandHandlerTests : QueryTestBase {
             Assert.Fail("No broadcast has gone out");
         }
 
-        Assert.That(broadcastedUpdate.LaneId, Is.EqualTo((int)KnownNoteLane.Continue));
+        Assert.That(broadcastedUpdate.LaneId, Is.EqualTo((int)KnownNoteLane.Ideas));
         Assert.That(broadcastedUpdate.RetroId, Is.EqualTo(command.RetroId));
         Assert.That(broadcastedUpdate.GroupId, Is.EqualTo(noteGroup.Id));
     }

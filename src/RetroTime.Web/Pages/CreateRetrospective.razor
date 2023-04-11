@@ -1,40 +1,46 @@
-@page "/create-retro"
+@page "/create-retro-session"
 @inherits MediatorComponent
 @using Microsoft.Extensions.Logging
 @using Microsoft.Extensions.Options
+@using Net.Codecrete.QrCodeGenerator
 @using RetroTime.Application.Common.Settings
 @using RetroTime.Application.Retrospectives.Commands.CreateRetrospective
+@using RetroTime.Web.Services
 @inject ILogger<CreateRetrospective> Logger
 @inject IOptions<SecuritySettings> SecuritySettingsAccessor
+@inject IJSRuntime JSRuntime
+@inject ClipboardService ClipboardService
 
 @if (ShowCompletionMessage)
 {
-    <section class="hero is-success">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    Success
-                </h1>
-                <h2 class="subtitle">
-                    Your retrospective lobby has been created.
-                </h2>
-            </div>
-        </div>
+    <section class="alert alert-success" role="alert">
+        <h4 class="alert-heading">
+            Success
+        </h4>
+        <p>
+            Your retrospective lobby has been created.
+        </p>
     </section>
 
     if (Result != null)
     {
-        <p class="form-explanation">
+        <p class="form-label">
             Please share the following URL and QR code with your team.
         </p>
 
-        <div class="control">
-            <input class="input" id="retro-location" type="text" readonly="readonly" value="@Result.Location">
+        <div class="input-group mb-3">
+            <input class="form-control" id="retro-location" type="text" readonly="readonly" value="@Result.Location">
+            <button class="input-group-text" id="copy-link" @onclick="CopyToClipboard">
+                <i class="fas fa-copy"></i>
+            </button>
+            <button class="input-group-text" id="open-link" @onclick="NavigateInNewTab">
+                <i class="fas fa-link"></i>
+            </button>
         </div>
 
-        <div>
+        <div class="mt-3">
             <p>
-                <img src="@Result.QrCode.ToBase64()" class="retro-qrcode" />
+                <img src="@Result.QrCode.ToBase64(4, 0)" class="retro-qrcode" alt=""/>
             </p>
         </div>
 
@@ -62,10 +68,10 @@
 }
 else
 {
-    <h1 class="title">Create a retrospective</h1>
-    <h2 class="subtitle">A safe space to reflect on the past sprint</h2>
+    <h1>Create a retrospective</h1>
+    <p>A safe space to reflect on the past sprint</p>
 
-    <p class="form-explanation">
+    <p class="lead">
         Create a retrospective with the form below. After completion you will receive a url to share with your team members.
     </p>
 
@@ -75,39 +81,33 @@ else
     }
 
     <EditForm Model="@Model" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
-        <Blazored.FluentValidation.FluentValidationValidator  />
+        <Blazored.FluentValidation.FluentValidationValidator/>
 
-        <div class="field">
-            <label class="label" for="retro-title">Title</label>
+        <div class="mb-3">
+            <label class="form-label" for="retrotime-title">Title</label>
             <div class="control">
-                <InputText id="retro-title" class="input" type="text" @bind-Value="@Model.Title" placeholder="Give the retrospective a title" />
+                <InputText id="retrotime-title" class="form-control" type="text" @bind-Value="@Model.Title" placeholder="Give the retrospective a title"/>
             </div>
 
             <ValidationMessage For="() => Model.Title"></ValidationMessage>
         </div>
 
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label class="label" for="retro-facilitator-passphrase">Facilitator passphrase</label>
-                    <div class="control">
-                        <InputText id="retro-facilitator-passphrase" class="input" type="text" @bind-Value="@Model.FacilitatorPassphrase" placeholder="" />
-                    </div>
+        <div class="mb-3">
+            <label class="form-label" for="retro-facilitator-passphrase">Facilitator passphrase</label>
+            <div class="control">
+                <InputText id="retro-facilitator-passphrase" class="form-control" type="text" @bind-Value="@Model.FacilitatorPassphrase" placeholder=""/>
+            </div>
 
-                    <ValidationMessage For="() => Model.FacilitatorPassphrase"></ValidationMessage>
-                    <p class="help">This is the password you need to start and control the progress of the retrospective.</p>
-                </div>
+            <ValidationMessage For="() => Model.FacilitatorPassphrase"></ValidationMessage>
+            <p class="text-muted small">This is the password you need to start and control the progress of the retrospective.</p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="retro-passphrase">Participant passphrase</label>
+            <div class="control">
+                <InputText id="retro-passphrase" class="form-control" type="text" @bind-Value="@Model.Passphrase" placeholder=""/>
             </div>
-            <div class="column">
-                <div class="field">
-                    <label class="label" for="retro-passphrase">Participant passphrase</label>
-                    <div class="control">
-                        <InputText id="retro-passphrase" class="input" type="text" @bind-Value="@Model.Passphrase" placeholder="" />
-                    </div>
-                    <ValidationMessage For="() => Model.Passphrase"></ValidationMessage>
-                    <p class="help">Optional passphrase required for participants to enter the lobby.</p>
-                </div>
-            </div>
+            <ValidationMessage For="() => Model.Passphrase"></ValidationMessage>
+            <p class="text-muted small">Optional passphrase required for participants to enter the lobby.</p>
         </div>
 
         @if (SecuritySettingsAccessor.Value.LobbyCreationNeedsPassphrase)
@@ -115,28 +115,28 @@ else
             <Modal IsShown="@ShowPasswordModal">
                 <div class="box" data-test-element-id="lobby-creation-passphrase-modal">
                     <div class="field">
-                        <label class="label" for="retro-lobby-creation-passphrase">Pre-shared retrospective creation passphrase</label>
+                        <label class="form-label" for="retro-lobby-creation-passphrase">Pre-shared retrospective creation passphrase</label>
                         <div class="control">
-                            <InputText id="retro-lobby-creation-passphrase" class="input" type="password" @bind-Value="@Model.LobbyCreationPassphrase" />
+                            <InputText id="retro-lobby-creation-passphrase" class="form-control" type="password" @bind-Value="@Model.LobbyCreationPassphrase"/>
                         </div>
 
                         <ValidationMessage For="() => Model.LobbyCreationPassphrase"></ValidationMessage>
                     </div>
 
-                    <button class="button is-link" id="modal-create-retro-button">Submit</button>
+                    <button class="btn btn-primary" id="modal-create-retro-button">Submit</button>
                 </div>
             </Modal>
         }
 
-         <div class="field is-grouped">
+        <div class="field is-grouped">
             <div class="control">
                 @if (SecuritySettingsAccessor.Value.LobbyCreationNeedsPassphrase)
                 {
-                    <button class="button is-link" id="create-retro-button" type="button" @onclick="@HandleProtectedFormSubmit">Submit</button>
+                    <button class="btn btn-primary" id="create-retro-button" type="button" @onclick="@HandleProtectedFormSubmit">Submit</button>
                 }
                 else
                 {
-                    <button class="button is-link" id="create-retro-button">Submit</button>
+                    <button class="btn btn-primary" id="create-retro-button">Submit</button>
                 }
             </div>
         </div>
@@ -190,4 +190,10 @@ else
 
     [Parameter]
     public CreateRetrospectiveCommand Model { get; set; } = new CreateRetrospectiveCommand();
+
+    private async void CopyToClipboard() => await ClipboardService.WriteTextAsync(Result.Location);
+
+    private async void NavigateInNewTab() =>
+        await JSRuntime.InvokeVoidAsync("open", Result.Location, "_blank");
+
 }

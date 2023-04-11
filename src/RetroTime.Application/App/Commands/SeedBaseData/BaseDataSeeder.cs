@@ -35,9 +35,9 @@ internal sealed class BaseDataSeeder {
 
         // Seed note lanes
         this._returnDbContext.NoteLanes.AddRange(
-            new NoteLane { Id = KnownNoteLane.Start, Name = "Start" },
-            new NoteLane { Id = KnownNoteLane.Stop, Name = "Stop" },
-            new NoteLane { Id = KnownNoteLane.Continue, Name = "Continue" }
+            new NoteLane { Id = KnownNoteLane.Good, Name = "Good", Color = Color.DarkGreen.ToArgb() },
+            new NoteLane { Id = KnownNoteLane.Bad, Name = "Bad", Color = Color.DarkRed.ToArgb() },
+            new NoteLane { Id = KnownNoteLane.Ideas, Name = "Ideas", Color = Color.DarkOrange.ToArgb() }
         );
     }
 

@@ -1,11 +1,12 @@
 @using RetroTime.Application.Retrospectives.Queries.GetRetrospectiveStatus
-<div class="columns">
+@using System.Drawing
+<div class="row">
     @foreach (RetrospectiveLane lane in RetrospectiveStatus.Lanes)
     {
         int order = RetrospectiveStatus.Lanes.IndexOf(lane) + 1;
 
-        <div class="column" data-test-element-id="note-lane" data-id="@lane.Id" @key="lane.Id">
-            <NoteLane Lane="@lane" Order="@order" />
+        <div class="col" data-test-element-id="note-lane" data-id="@lane.Id" @key="lane.Id">
+            <NoteLane Lane="@lane" Order="@order"/>
         </div>
     }
 </div>

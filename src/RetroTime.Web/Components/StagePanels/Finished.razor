@@ -22,17 +22,17 @@
     if (RetrospectiveLobby.ShowShowcase)
     {
         <button type="button"
-                class="button is-link is-outlined full-width"
+                class="btn btn-secondary d-block"
                 data-test-element-id="toggle-view-button"
                 @onclick="@(() => RetrospectiveLobby.ShowBoardDisplay())">
-            <span class="icon"><span class="fas fa-columns"></span></span><span>Show full board</span>
+            <span>Show full board</span>
         </button>
     } else {
         <button type="button"
-                class="button is-link is-outlined full-width"
+                class="btn btn-secondary d-block"
                 data-test-element-id="toggle-view-button"
                 @onclick="@(() => RetrospectiveLobby.ShowShowcaseDisplay())">
-            <span class="icon"><span class="fas fa-list-ol"></span></span><span>Show top items</span>
+            <span>Show top items</span>
         </button>
     }
 }

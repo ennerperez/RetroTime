@@ -1,9 +1,9 @@
 @use 'sass:math';
 
 $retro-progress-arrow-width: 12px;
-$retro-progress-arrow-height-modifier: math.div(36px, 2);
-$retro-progress-active-color: $gray-700; // $grey-dark;
-$retro-progress-previous-color: $gray-300; //$grey-light;
+$retro-progress-arrow-height-modifier: calc(48px/2);
+$retro-progress-active-color: $gray-400;
+$retro-progress-previous-color: $gray-200;
 
 .retrospective-title {
     font-weight: bold;

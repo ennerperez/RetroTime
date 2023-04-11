@@ -16,11 +16,11 @@
     @if (RetrospectiveStatus.IsVotingAllowed)
     {
         if (Votes.CanCastVote(CurrentParticipant.Id, Lane.Id) && !IsSaving) {
-            <span class="vote-list__vote-button" @onclick="@DoVote">
+            <span class="vote-list__vote-button btn btn-sm btn-success text-white" @onclick="@DoVote">
                 <i class="fas fa-thumbs-up"></i>
             </span>
         } else {
-            <span class="vote-list__vote-button vote-list__vote-button--disabled">
+            <span class="vote-list__vote-button vote-list__vote-button--disabled btn btn-sm btn-success text-white disabled">
                 <i class="far fa-thumbs-up"></i>
             </span>
         }
@@ -31,7 +31,7 @@
         {
             if (vote.ParticipantId == CurrentParticipant.Id && !IsSaving && RetrospectiveStatus.IsVotingAllowed)
             {
-                <li class="vote-list__vote-remove-button"
+                <li class="vote-list__vote-remove-button btn btn-warning btn-sm rounded-5 me-1"
                     @onclick="@RetractVote"><Vote Color="@vote.ParticipantColor" IsCast="@vote.IsCast" /></li>
             }
             else
