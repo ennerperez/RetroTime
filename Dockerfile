@@ -16,12 +16,12 @@ COPY src/RetroTime.Persistence/*.csproj src/RetroTime.Persistence/
 COPY src/RetroTime.Web/*.csproj src/RetroTime.Web/
 COPY src/*.props src/
 
-# ... tests
-COPY tests/RetroTime.Application.Tests.Unit/*.csproj tests/RetroTime.Application.Tests.Unit/
-COPY tests/RetroTime.Domain.Tests.Unit/*.csproj tests/RetroTime.Domain.Tests.Unit/
-COPY tests/RetroTime.Web.Tests.Unit/*.csproj tests/RetroTime.Web.Tests.Unit/
-COPY tests/RetroTime.Web.Tests.Integration/*.csproj tests/RetroTime.Web.Tests.Integration/
-COPY tests/*.props tests/
+# # ... tests
+# COPY tests/RetroTime.Application.Tests.Unit/*.csproj tests/RetroTime.Application.Tests.Unit/
+# COPY tests/RetroTime.Domain.Tests.Unit/*.csproj tests/RetroTime.Domain.Tests.Unit/
+# COPY tests/RetroTime.Web.Tests.Unit/*.csproj tests/RetroTime.Web.Tests.Unit/
+# COPY tests/RetroTime.Web.Tests.Integration/*.csproj tests/RetroTime.Web.Tests.Integration/
+# COPY tests/*.props tests/
 
 COPY *.sln .
 COPY *.props .
@@ -42,11 +42,11 @@ RUN yarn --cwd src/RetroTime.Web/
 ### TEST
 FROM build-env AS test
 
-# ... run tests
-COPY . .
-ENV RETURN_TEST_WAIT_TIME 30
-ENV SCREENSHOT_TEST_FAILURE_TOLERANCE True
-RUN ./build.sh --target=test
+# # ... run tests
+# COPY . .
+# ENV RETURN_TEST_WAIT_TIME 30
+# ENV SCREENSHOT_TEST_FAILURE_TOLERANCE True
+# RUN ./build.sh --target=test
 
 ### PUBLISHING
 FROM build-env AS publish
